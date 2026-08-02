@@ -265,11 +265,11 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 
 /* ---------- VIDÉOS ---------- */
 .video-frame {
-  position: relative; max-width: 960px; margin: 0 auto;
-  border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
+  position: relative; max-width: 380px; margin: 0 auto;
+  border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
   box-shadow: 0 30px 80px rgba(0,0,0,0.6); background: #000;
 }
-.video-frame video { width: 100%; display: block; }
+.video-frame video { width: 100%; display: block; aspect-ratio: 320 / 568; object-fit: cover; }
 .video-caption { text-align: center; color: var(--muted); font-style: italic; margin-top: 20px; font-family: var(--serif); font-size: 1.05rem; }
 
 /* ---------- À PROPOS ---------- */
