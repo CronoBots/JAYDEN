@@ -243,8 +243,14 @@
     audio.addEventListener("ended", () => { mpFill.style.right = "100%"; });
 
     // L'icône suit toujours l'état réel de l'audio (play <-> pause synchronisés)
-    audio.addEventListener("play", () => mpIcon.setAttribute("d", PAUSE));
-    audio.addEventListener("pause", () => mpIcon.setAttribute("d", PLAY));
+    audio.addEventListener("play", () => {
+      mpIcon.setAttribute("d", PAUSE);
+      mp.classList.add("playing");
+    });
+    audio.addEventListener("pause", () => {
+      mpIcon.setAttribute("d", PLAY);
+      mp.classList.remove("playing");
+    });
 
     const toggle = () => {
       if (!audio.src) return;
@@ -287,6 +293,19 @@
       nlNote.textContent = I18N[currentLang]["nl.thanks"];
       nlNote.style.color = "var(--gold-lite)";
       nl.reset();
+    });
+  }
+
+  /* ---------- Vidéo « vivante » À propos : son on / off ---------- */
+  const aboutVideo = document.getElementById("aboutVideo");
+  const aboutSound = document.getElementById("aboutSound");
+  if (aboutVideo && aboutSound) {
+    aboutSound.addEventListener("click", () => {
+      aboutVideo.muted = !aboutVideo.muted;
+      const on = !aboutVideo.muted;
+      aboutSound.classList.toggle("is-on", on);
+      aboutSound.setAttribute("aria-pressed", String(on));
+      if (on) aboutVideo.play().catch(() => {});
     });
   }
 })();
