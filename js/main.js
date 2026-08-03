@@ -17,6 +17,7 @@
       "hero.lead": "Between rock, soul and urban poetry — songs born from lived experience.",
       "hero.quote": "“I don't make music to please.<br>I make it to transmit.”",
       "hero.quoteCite": "Jayden",
+      "hero.next": "Next live",
       "music.label": "The music", "music.title": "The new single",
       "single.badge": "New single",
       "single.meta": "JAYDEN · Rock · Soul · Urban poetry",
@@ -52,6 +53,7 @@
       "contact.send": "Send",
       "footer.tag": "Voice. Guitar. Truth.",
       "footer.copy": "© 2026 JAYDEN — All rights reserved · ",
+      "footer.credit": "Website by",
       "mp.artist": "JAYDEN · Preview"
     },
     fr: {
@@ -63,6 +65,7 @@
       "hero.lead": "Entre rock, soul et poésie urbaine, des chansons nées du vécu.",
       "hero.quote": "« Je ne fais pas de musique pour plaire.<br>Je la fais pour transmettre. »",
       "hero.quoteCite": "Jayden",
+      "hero.next": "Prochain live",
       "music.label": "La musique", "music.title": "Le nouveau single",
       "single.badge": "Nouveau single",
       "single.meta": "JAYDEN · Rock · Soul · Poésie urbaine",
@@ -98,6 +101,7 @@
       "contact.send": "Envoyer",
       "footer.tag": "Voix. Guitare. Vérité.",
       "footer.copy": "© 2026 JAYDEN — Tous droits réservés · ",
+      "footer.credit": "Site réalisé par",
       "mp.artist": "JAYDEN · Extrait"
     }
   };
