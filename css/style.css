@@ -424,18 +424,10 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 }
 
 /* =========================================================
-   SINGLE — pochette cliquable (déclenche le lecteur)
+   SINGLE — pochette (simple cadre, non cliquable)
    ========================================================= */
-.single__cover {
-  display: block; width: 100%; padding: 0; background: none; cursor: pointer;
-}
-.single__play-badge {
-  position: absolute; inset: 0; display: grid; place-items: center;
-  background: rgba(0,0,0,0.28); opacity: 0; transition: opacity 0.35s var(--ease);
-}
-.single__cover:hover .single__play-badge,
-.single__cover:focus-visible .single__play-badge { opacity: 1; }
-.single__play-badge svg { width: 66px; height: 66px; fill: #fff; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)); }
+.single__cover { display: block; width: 100%; margin: 0; }
+.single__cover img { display: block; }
 .single__desc { color: var(--muted); margin: 0 0 24px; max-width: 60ch; text-wrap: pretty; }
 .single__listen { margin-bottom: 22px; }
 

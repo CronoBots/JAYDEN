@@ -263,9 +263,7 @@
     };
 
     document.getElementById("mpPlay").addEventListener("click", toggle);
-    const coverPlay = document.getElementById("coverPlay");
     const sectionPlay = document.getElementById("sectionPlay");
-    if (coverPlay) coverPlay.addEventListener("click", toggle);
     if (sectionPlay) sectionPlay.addEventListener("click", toggle);
 
     const seek = (clientX) => {
