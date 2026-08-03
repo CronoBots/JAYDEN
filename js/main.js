@@ -47,6 +47,8 @@
       "nl.placeholder": "Your email address", "nl.submit": "Subscribe",
       "nl.invalid": "Please enter a valid email address.",
       "nl.thanks": "Thank you! You're now part of the journey. 🖤",
+      "form.required": "Please fill out this field.",
+      "form.email": "Please enter a valid email address.",
       "contact.label": "Get in touch", "contact.title": "Contact",
       "contact.intro": "Booking, press, collaborations — or just a word. Feel free to reach out.",
       "contact.name": "Name", "contact.email": "Email", "contact.message": "Message",
@@ -95,6 +97,8 @@
       "nl.placeholder": "Ton adresse e-mail", "nl.submit": "S'inscrire",
       "nl.invalid": "Merci d'entrer une adresse e-mail valide.",
       "nl.thanks": "Merci ! Tu fais désormais partie de l'aventure. 🖤",
+      "form.required": "Veuillez remplir ce champ.",
+      "form.email": "Veuillez saisir une adresse e-mail valide.",
       "contact.label": "Écris-moi", "contact.title": "Contact",
       "contact.intro": "Booking, presse, collaborations ou simplement un mot : n'hésite pas.",
       "contact.name": "Nom", "contact.email": "E-mail", "contact.message": "Message",
@@ -319,6 +323,21 @@
       nl.reset();
     });
   }
+
+  /* ---------- Messages de validation natifs traduits (EN/FR) ---------- */
+  document.querySelectorAll("input[required], textarea[required]").forEach((field) => {
+    const setMsg = () => {
+      field.setCustomValidity("");
+      if (field.validity.valid) return;
+      if (field.validity.valueMissing) {
+        field.setCustomValidity(I18N[currentLang]["form.required"]);
+      } else if (field.validity.typeMismatch) {
+        field.setCustomValidity(I18N[currentLang]["form.email"]);
+      }
+    };
+    field.addEventListener("invalid", setMsg);
+    field.addEventListener("input", () => field.setCustomValidity(""));
+  });
 
   /* ---------- Vidéo « vivante » À propos ---------- */
   const aboutVideo = document.getElementById("aboutVideo");
