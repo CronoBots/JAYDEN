@@ -4,6 +4,126 @@
 (function () {
   "use strict";
 
+  /* =========================================================
+     LANGUE — Anglais par défaut, bascule EN / FR
+     ========================================================= */
+  const I18N = {
+    en: {
+      "doc.title": "JAYDEN — Official site · Voice. Guitar. Truth.",
+      "nav.home": "Home", "nav.music": "Music", "nav.videos": "Videos",
+      "nav.about": "About", "nav.news": "News", "nav.contact": "Contact",
+      "hero.eyebrow": "Music. Soul. Freedom.",
+      "hero.subtitle": "Voice. Guitar. Truth.",
+      "hero.lead": "Between rock, soul and urban poetry — songs born from lived experience.",
+      "hero.quote": "“I don't make music to please.<br>I make it to transmit.”",
+      "hero.quoteCite": "Jayden",
+      "music.label": "The music", "music.title": "The new single",
+      "single.badge": "New single",
+      "single.meta": "JAYDEN · Rock · Soul · Urban poetry",
+      "single.desc": "A dark, sincere first taste — the beginning of a story meant to grow.",
+      "single.listen": "Play the preview",
+      "streams.soon": "Coming soon on all platforms",
+      "disc.title": "Discography",
+      "disc.sub": "The beginning of a journey. New tracks coming soon.",
+      "disc.soon": "Soon",
+      "videos.label": "Watch", "videos.title": "Videos",
+      "videos.caption": "Teaser — the mood of the album to come.",
+      "about.label": "The artist", "about.title": "About",
+      "about.lead": "One voice, one guitar, and truth as the only rule.",
+      "about.p1": "JAYDEN writes songs born from lived experience, where rock, soul and urban poetry meet. Sincere lyrics carried by raw energy and a dark elegance.",
+      "about.p2": "Far from ready-made formulas, his music seeks less to please than to transmit — an emotion, a memory, a night spent under the streetlights. The new single <em>Somethin' Inside My Mind</em> opens this chapter, the first of a story meant to grow.",
+      "about.sign": "Jayden",
+      "news.label": "News", "news.title": "Shows &amp; news",
+      "news.sanremo.month": "Sep",
+      "news.sanremo.title": "Live in San Remo",
+      "news.sanremo.sub": "San Remo, Italy · September 12, 2026",
+      "news.tag.live": "Live",
+      "news.single.title": "New single “Somethin' Inside My Mind”",
+      "news.single.sub": "Preview available on the site",
+      "news.tag.release": "Release",
+      "nl.title": "Stay in the loop",
+      "nl.sub": "Be the first to get JAYDEN's music, videos and news.",
+      "nl.placeholder": "Your email address", "nl.submit": "Subscribe",
+      "nl.invalid": "Please enter a valid email address.",
+      "nl.thanks": "Thank you! You're now part of the journey. 🖤",
+      "contact.label": "Get in touch", "contact.title": "Contact",
+      "contact.intro": "Booking, press, collaborations — or just a word. Feel free to reach out.",
+      "contact.name": "Name", "contact.email": "Email", "contact.message": "Message",
+      "contact.send": "Send",
+      "footer.tag": "Voice. Guitar. Truth.",
+      "footer.copy": "© 2026 JAYDEN — All rights reserved · ",
+      "mp.artist": "JAYDEN · Preview"
+    },
+    fr: {
+      "doc.title": "JAYDEN — Site officiel · Voix. Guitare. Vérité.",
+      "nav.home": "Accueil", "nav.music": "Musique", "nav.videos": "Vidéos",
+      "nav.about": "À propos", "nav.news": "Actus", "nav.contact": "Contact",
+      "hero.eyebrow": "Music. Soul. Freedom.",
+      "hero.subtitle": "Voix. Guitare. Vérité.",
+      "hero.lead": "Entre rock, soul et poésie urbaine, des chansons nées du vécu.",
+      "hero.quote": "« Je ne fais pas de musique pour plaire.<br>Je la fais pour transmettre. »",
+      "hero.quoteCite": "Jayden",
+      "music.label": "La musique", "music.title": "Le nouveau single",
+      "single.badge": "Nouveau single",
+      "single.meta": "JAYDEN · Rock · Soul · Poésie urbaine",
+      "single.desc": "Un premier extrait sombre et sincère — le début d'une histoire appelée à grandir.",
+      "single.listen": "Écouter l'extrait",
+      "streams.soon": "Bientôt sur les plateformes",
+      "disc.title": "Discographie",
+      "disc.sub": "Le début d'une aventure. De nouveaux titres arrivent bientôt.",
+      "disc.soon": "Bientôt",
+      "videos.label": "En images", "videos.title": "Vidéos",
+      "videos.caption": "Teaser — l'ambiance de l'album à venir.",
+      "about.label": "L'artiste", "about.title": "À propos",
+      "about.lead": "Une voix, une guitare, et la vérité pour seule ligne de conduite.",
+      "about.p1": "JAYDEN écrit des chansons nées du vécu, à la croisée du rock, de la soul et de la poésie urbaine. Des textes sincères, portés par une énergie brute et une élégance sombre.",
+      "about.p2": "Loin des formules toutes faites, sa musique cherche moins à plaire qu'à transmettre : une émotion, un souvenir, une nuit passée sous les lampadaires. Le nouveau single <em>Somethin' Inside My Mind</em> ouvre ce chapitre — le premier d'une histoire appelée à grandir.",
+      "about.sign": "Jayden",
+      "news.label": "L'actualité", "news.title": "Concerts &amp; actus",
+      "news.sanremo.month": "Sep",
+      "news.sanremo.title": "En concert à San Remo",
+      "news.sanremo.sub": "San Remo, Italie · 12 septembre 2026",
+      "news.tag.live": "Live",
+      "news.single.title": "Nouveau single « Somethin' Inside My Mind »",
+      "news.single.sub": "Extrait à écouter sur le site",
+      "news.tag.release": "Sortie",
+      "nl.title": "Reste dans la boucle",
+      "nl.sub": "Reçois en avant-première la musique, les vidéos et les actus de JAYDEN.",
+      "nl.placeholder": "Ton adresse e-mail", "nl.submit": "S'inscrire",
+      "nl.invalid": "Merci d'entrer une adresse e-mail valide.",
+      "nl.thanks": "Merci ! Tu fais désormais partie de l'aventure. 🖤",
+      "contact.label": "Écris-moi", "contact.title": "Contact",
+      "contact.intro": "Booking, presse, collaborations ou simplement un mot : n'hésite pas.",
+      "contact.name": "Nom", "contact.email": "E-mail", "contact.message": "Message",
+      "contact.send": "Envoyer",
+      "footer.tag": "Voix. Guitare. Vérité.",
+      "footer.copy": "© 2026 JAYDEN — Tous droits réservés · ",
+      "mp.artist": "JAYDEN · Extrait"
+    }
+  };
+  let currentLang = "en";
+  const langBtns = document.querySelectorAll(".lang__opt");
+  function applyLang(lang) {
+    if (!I18N[lang]) lang = "en";
+    currentLang = lang;
+    document.documentElement.setAttribute("lang", lang);
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const v = I18N[lang][el.getAttribute("data-i18n")];
+      if (v != null) el.innerHTML = v;
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+      const v = I18N[lang][el.getAttribute("data-i18n-ph")];
+      if (v != null) el.setAttribute("placeholder", v);
+    });
+    if (I18N[lang]["doc.title"]) document.title = I18N[lang]["doc.title"];
+    langBtns.forEach((b) => b.classList.toggle("is-on", b.dataset.lang === lang));
+    try { localStorage.setItem("jayden_lang", lang); } catch (e) {}
+  }
+  langBtns.forEach((b) => b.addEventListener("click", () => applyLang(b.dataset.lang)));
+  let savedLang = "en";
+  try { savedLang = localStorage.getItem("jayden_lang") || "en"; } catch (e) {}
+  applyLang(savedLang);
+
   /* ---------- Nav : fond au scroll ---------- */
   const nav = document.getElementById("nav");
   const toTop = document.getElementById("toTop");
@@ -160,11 +280,11 @@
       e.preventDefault();
       const email = nl.querySelector("input").value.trim();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        nlNote.textContent = "Merci d'entrer une adresse e-mail valide.";
+        nlNote.textContent = I18N[currentLang]["nl.invalid"];
         nlNote.style.color = "var(--gold)";
         return;
       }
-      nlNote.textContent = "Merci ! Tu fais désormais partie de l'aventure. 🖤";
+      nlNote.textContent = I18N[currentLang]["nl.thanks"];
       nlNote.style.color = "var(--gold-lite)";
       nl.reset();
     });

@@ -110,6 +110,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav__links a:hover, .nav__links a.active { color: var(--gold-lite); opacity: 1; }
 .nav__links a:hover::after, .nav__links a.active::after { width: 100%; }
 
+.nav__end { display: flex; align-items: center; gap: clamp(14px, 2vw, 26px); }
+.lang { display: flex; align-items: center; gap: 5px; }
+.lang__opt { font-family: var(--sans); font-weight: 500; font-size: 0.74rem; letter-spacing: 0.1em; color: var(--muted); padding: 4px 2px; transition: color 0.3s; }
+.lang__opt.is-on { color: var(--gold-lite); }
+.lang__opt:hover { color: var(--gold); }
+.lang__sep { color: var(--line); font-size: 0.72rem; user-select: none; }
+
 .nav__social { display: flex; align-items: center; gap: 16px; }
 .nav__social a { color: var(--gold); opacity: 0.82; transition: opacity 0.3s, transform 0.3s; }
 .nav__social a:hover { opacity: 1; transform: translateY(-2px); color: var(--gold-lite); }
@@ -149,7 +156,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 }
 .hero__content { max-width: 620px; }
 .hero__title {
-  font-family: var(--serif); font-weight: 600;
+  font-family: var(--serif); font-weight: 700;
   font-size: clamp(3.6rem, 10.5vw, 8.6rem); line-height: 1.04;
   letter-spacing: 0.04em; margin: 16px 0 6px; padding-bottom: 0.1em;
   width: max-content; max-width: 100%;
