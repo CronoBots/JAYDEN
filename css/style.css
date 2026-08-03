@@ -506,28 +506,34 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   body.menu-open .lang { opacity: 1; pointer-events: auto; }
   .nav__burger { display: block; z-index: 102; }
 
-  /* Hero mobile EN PILE : texte (fond sombre) → photo dédiée → bandeau single.
-     Évite que le texte se superpose au visage. */
-  .hero { min-height: auto; }
-  .hero__inner { order: 1; flex: none; padding: 104px 20px 40px; align-items: flex-start; }
+  /* Hero mobile CINÉMA : on tombe directement sur la photo plein écran,
+     la marque est posée en bas sur un dégradé (le visage reste dégagé). */
+  .hero { min-height: 100svh; display: block; position: relative; }
   .hero__bg {
-    position: relative; inset: auto; order: 2;
-    width: 100%; height: 58vh; min-height: 380px;
-    background-size: cover; background-position: 50% 16%;
+    position: absolute; top: 0; left: 0; right: 0; order: 0;
+    width: 100%; height: 100svh;
+    background: url("../assets/img/hero-gold.jpg") no-repeat 50% 10% / cover;
     -webkit-mask-image: none; mask-image: none;
   }
   .hero__bg::after {
     content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, var(--bg) 0%, transparent 15%, transparent 74%, var(--bg) 100%);
+    background: linear-gradient(180deg, rgba(11,9,8,0.5) 0%, rgba(11,9,8,0) 20%, rgba(11,9,8,0) 34%, rgba(11,9,8,0.7) 60%, var(--bg) 96%);
   }
   .hero__scrim { display: none; }
-  .hero__title img { width: min(440px, 78vw); }
+  .hero__inner {
+    position: relative; z-index: 2; order: 1;
+    min-height: 100svh; display: flex; align-items: flex-end;
+    padding: 90px 22px calc(76px + 26px);
+  }
+  .hero__content { max-width: none; width: 100%; }
+  .hero__title { margin: 6px 0 10px; }
+  .hero__title img { width: min(420px, 74vw); }
   .hero__subtitle { font-size: clamp(1.15rem, 5.4vw, 1.7rem); }
-  .hero__lead { margin-bottom: 0; white-space: normal; }
+  .hero__lead { margin: 18px 0 0; white-space: normal; }
   .hero__event { margin-top: 22px; }
   .hero__quote {
-    position: static; order: 3; max-width: none; text-align: center;
-    padding: 30px 24px 8px; font-size: 1.18rem;
+    position: static; order: 2; max-width: none; text-align: center;
+    padding: 44px 24px 8px; font-size: 1.18rem;
   }
   .hero__quote cite { font-size: 2.7rem; }
 
