@@ -129,9 +129,9 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; }
 .hero__bg {
   position: absolute; inset: 0; z-index: 0;
-  background: url("../assets/img/hero-gold.jpg") no-repeat right center / auto 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, rgba(0,0,0,0.45) 58%, #000 72%);
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, rgba(0,0,0,0.45) 58%, #000 72%);
+  background: url("../assets/img/hero-gold.jpg") no-repeat right top / auto 142%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(0,0,0,0.5) 54%, #000 68%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(0,0,0,0.5) 54%, #000 68%);
 }
 .hero__scrim {
   position: absolute; inset: 0; z-index: 1;
@@ -373,20 +373,26 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   body.menu-open .nav__social { opacity: 1; pointer-events: auto; }
   .nav__burger { display: block; z-index: 102; }
 
-  /* Hero : plein cadre immersif (le personnage entier laisserait des bandes vides sur mobile) */
+  /* Hero mobile EN PILE : texte (fond sombre) → photo dédiée → bandeau single.
+     Évite que le texte se superpose au visage. */
+  .hero { min-height: auto; }
+  .hero__inner { order: 1; flex: none; padding: 104px 20px 40px; align-items: flex-start; }
   .hero__bg {
-    background-size: cover; background-position: 50% 14%;
+    position: relative; inset: auto; order: 2;
+    width: 100%; height: 58vh; min-height: 380px;
+    background-size: cover; background-position: 50% 16%;
     -webkit-mask-image: none; mask-image: none;
   }
-  .hero__scrim {
-    background: linear-gradient(180deg, rgba(11,9,8,0.74) 0%, rgba(11,9,8,0.34) 38%, rgba(11,9,8,0.6) 72%, var(--bg) 100%);
+  .hero__bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--bg) 0%, transparent 15%, transparent 74%, var(--bg) 100%);
   }
-  .hero__inner { flex: 0 0 auto; padding: 108px 20px 44px; align-items: flex-start; }
+  .hero__scrim { display: none; }
   .hero__title { width: auto; max-width: 100%; font-size: clamp(3.2rem, 16vw, 5rem); line-height: 1.08; }
   .hero__subtitle { font-size: clamp(1.15rem, 5.4vw, 1.7rem); }
   .hero__lead { margin-bottom: 30px; }
   .hero__content .btn { width: 100%; justify-content: center; }
-  .hero__strip { margin-top: auto; }
+  .hero__strip { order: 3; margin-top: 0; }
   .hero__strip-inner { padding: 34px 20px 40px; gap: 24px; }
   .strip__single .btn { width: auto; }
 
