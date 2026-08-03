@@ -316,15 +316,15 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .video-caption { text-align: center; color: var(--muted); font-style: italic; margin-top: 20px; font-family: var(--serif); font-size: 1.05rem; }
 
 /* ---------- À PROPOS ---------- */
-.about { display: grid; grid-template-columns: minmax(0, 400px) 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+.about { display: grid; grid-template-columns: minmax(0, 460px) 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
 .about__img { border-radius: 6px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
 .about__img img { width: 100%; }
 .about__video {
   position: relative; border-radius: 8px; overflow: hidden;
   border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,0.6);
 }
-/* Format 1/1 respecté, vidéo non rognée (contain) sur fond sombre */
-.about__video video { width: 100%; display: block; aspect-ratio: 1 / 1; object-fit: contain; background: #070605; }
+/* Le cadre épouse le format natif de la vidéo (bords collés, aucune bande) */
+.about__video video { width: 100%; height: auto; display: block; }
 .about__sound {
   position: absolute; right: 12px; bottom: 12px; width: 42px; height: 42px;
   border-radius: 50%; background: rgba(9,7,5,0.68); border: 1px solid var(--line);
@@ -523,6 +523,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   .hero__title img { width: min(440px, 78vw); }
   .hero__subtitle { font-size: clamp(1.15rem, 5.4vw, 1.7rem); }
   .hero__lead { margin-bottom: 0; white-space: normal; }
+  .hero__event { margin-top: 22px; }
   .hero__quote {
     position: static; order: 3; max-width: none; text-align: center;
     padding: 30px 24px 8px; font-size: 1.18rem;
