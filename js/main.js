@@ -200,20 +200,24 @@
   });
 
   /* ---------- Parallaxe douce du hero (PC uniquement) ----------
-     Désactivée sur mobile : la photo plein écran ne doit pas bouger/zoomer au scroll. */
+     JAMAIS sur mobile : la photo plein écran ne doit ni bouger ni zoomer au scroll.
+     On revérifie le breakpoint à chaque scroll (rotation/redimensionnement) et on
+     nettoie tout transform résiduel dès qu'on n'est plus sur grand écran. */
   const heroBg = document.querySelector(".hero__bg");
-  const allowParallax = heroBg
-    && !matchMedia("(prefers-reduced-motion: reduce)").matches
-    && matchMedia("(min-width: 761px)").matches;
-  if (allowParallax) {
-    window.addEventListener(
-      "scroll",
-      () => {
-        const y = window.scrollY;
-        if (y < window.innerHeight) heroBg.style.transform = `translateY(${y * 0.12}px)`;
-      },
-      { passive: true }
-    );
+  if (heroBg && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const desktop = matchMedia("(min-width: 761px)");
+    const onHeroScroll = () => {
+      if (!desktop.matches) {
+        if (heroBg.style.transform) heroBg.style.transform = "";
+        return;
+      }
+      const y = window.scrollY;
+      if (y < window.innerHeight) heroBg.style.transform = `translateY(${y * 0.12}px)`;
+    };
+    window.addEventListener("scroll", onHeroScroll, { passive: true });
+    const clearIfMobile = () => { if (!desktop.matches) heroBg.style.transform = ""; };
+    if (desktop.addEventListener) desktop.addEventListener("change", clearIfMobile);
+    clearIfMobile();
   }
 
   /* ---------- Lecteur fixe (barre en bas) ---------- */
