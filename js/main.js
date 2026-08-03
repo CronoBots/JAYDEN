@@ -67,10 +67,11 @@
         }
       });
     },
-    { threshold: 0.14 }
+    // se déclenche un peu avant que l'élément entre dans l'écran (évite les zones vides au scroll)
+    { threshold: 0, rootMargin: "0px 0px 14% 0px" }
   );
   document.querySelectorAll(".reveal").forEach((el, i) => {
-    el.style.transitionDelay = (i % 4) * 90 + "ms";
+    el.style.transitionDelay = (i % 3) * 70 + "ms";
     revealer.observe(el);
   });
 
