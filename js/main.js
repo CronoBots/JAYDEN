@@ -131,12 +131,16 @@
   /* ---------- Nav : fond au scroll ---------- */
   const nav = document.getElementById("nav");
   const toTop = document.getElementById("toTop");
+  // Sur mobile, le bouton « remonter » apparaît dès qu'on commence à scroller ;
+  // sur PC on attend d'avoir bien descendu.
+  const isMobile = window.matchMedia("(max-width: 760px)");
   const onScroll = () => {
     const y = window.scrollY;
     nav.classList.toggle("scrolled", y > 40);
-    toTop.classList.toggle("show", y > 700);
+    toTop.classList.toggle("show", y > (isMobile.matches ? 60 : 700));
   };
   window.addEventListener("scroll", onScroll, { passive: true });
+  if (isMobile.addEventListener) isMobile.addEventListener("change", onScroll);
   onScroll();
 
   /* ---------- Bouton retour en haut ---------- */
