@@ -529,14 +529,17 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
     min-height: 100svh; display: flex; align-items: flex-end;
     padding: 90px 22px calc(76px + 26px);
   }
-  .hero__content { max-width: none; width: 100%; }
+  /* Contenu du héros centré horizontalement sur mobile */
+  .hero__content { max-width: none; width: 100%; text-align: center; }
+  .eyebrow { justify-content: center; }
+  .eyebrow::after { display: none; }
   .hero__title { margin: 6px 0 10px; }
-  .hero__title img { width: min(420px, 74vw); }
+  .hero__title img { width: min(420px, 74vw); margin-left: auto; margin-right: auto; }
   .hero__subtitle { font-size: clamp(1.15rem, 5.4vw, 1.7rem); }
   .hero__lead { margin: 18px 0 0; white-space: normal; }
-  /* Signature du héros : intégrée en bas de la photo (dans l'overlay) */
+  /* Signature du héros : intégrée en bas de la photo (dans l'overlay), centrée */
   .hero__quote {
-    position: static; max-width: none; text-align: left;
+    position: static; max-width: none; text-align: center;
     padding: 0; margin-top: 20px; font-size: 1.06rem;
   }
   .hero__quote cite { font-size: 2.4rem; }
