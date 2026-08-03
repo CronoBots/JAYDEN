@@ -199,7 +199,36 @@
     revealer.observe(el);
   });
 
-  /* La parallaxe du héros a été entièrement retirée : la photo ne bouge jamais au scroll. */
+  /* ---------- Héros mobile : hauteur VERROUILLÉE en pixels ----------
+     Aucune parallaxe. Sur mobile, la barre d'adresse du navigateur qui apparaît/disparaît
+     au scroll modifie la hauteur "viewport" (svh/vh) et fait re-calculer le cadrage
+     "cover" de la photo → effet de zoom. On fige donc la hauteur de la photo (et de
+     l'overlay) sur une valeur en pixels capturée une seule fois, jamais mise à jour au
+     scroll. La photo devient totalement immobile. */
+  (function lockHeroHeight() {
+    const heroEl = document.querySelector(".hero");
+    const heroBg = document.querySelector(".hero__bg");
+    const heroInner = document.querySelector(".hero__inner");
+    if (!heroEl || !heroBg) return;
+    const mq = window.matchMedia("(max-width: 760px)");
+    const apply = () => {
+      if (mq.matches) {
+        const h = window.innerHeight;
+        heroBg.style.height = h + "px";
+        heroEl.style.minHeight = h + "px";
+        if (heroInner) heroInner.style.minHeight = h + "px";
+      } else {
+        heroBg.style.height = "";
+        heroEl.style.minHeight = "";
+        if (heroInner) heroInner.style.minHeight = "";
+      }
+    };
+    apply();
+    // On NE réagit PAS au scroll ni au resize dû à la barre d'adresse.
+    // Uniquement au changement d'orientation (vraie modification d'écran).
+    window.addEventListener("orientationchange", () => setTimeout(apply, 250));
+    if (mq.addEventListener) mq.addEventListener("change", apply);
+  })();
 
   /* ---------- Lecteur fixe (barre en bas) ---------- */
   const mp = document.getElementById("miniplayer");
