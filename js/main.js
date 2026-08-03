@@ -15,6 +15,12 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  /* ---------- Bouton retour en haut ---------- */
+  toTop.addEventListener("click", () => {
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  });
+
   /* ---------- Menu mobile ---------- */
   const burger = document.getElementById("burger");
   const closeMenu = () => {
@@ -107,8 +113,7 @@
     audio.addEventListener("loadedmetadata", () => {
       ready = true;
       durEl.textContent = fmt(audio.duration);
-      if (note) note.textContent =
-        "Extrait — écoute le titre complet sur les plateformes ci-dessous.";
+      if (note) note.textContent = "Extrait du nouveau single.";
     });
     audio.addEventListener("timeupdate", () => {
       const p = (audio.currentTime / audio.duration) * 100 || 0;
@@ -127,8 +132,7 @@
     playBtn.addEventListener("click", () => {
       if (!ready) {
         if (note) {
-          note.textContent =
-            "L'extrait audio sera bientôt en ligne. En attendant, écoute sur Spotify, Apple Music ou YouTube.";
+          note.textContent = "L'extrait audio sera bientôt en ligne.";
           note.style.color = "var(--gold)";
         }
         return;
