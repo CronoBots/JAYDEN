@@ -129,9 +129,9 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; }
 .hero__bg {
   position: absolute; inset: 0; z-index: 0;
-  background: url("../assets/img/hero-gold.jpg") no-repeat 100% top / auto 110%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 50%, rgba(0,0,0,0.45) 62%, #000 74%);
-  mask-image: linear-gradient(90deg, transparent 0%, transparent 50%, rgba(0,0,0,0.45) 62%, #000 74%);
+  background: url("../assets/img/hero-gold.jpg") no-repeat right center / auto 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, rgba(0,0,0,0.45) 58%, #000 72%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 46%, rgba(0,0,0,0.45) 58%, #000 72%);
 }
 .hero__scrim {
   position: absolute; inset: 0; z-index: 1;
@@ -373,9 +373,9 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   body.menu-open .nav__social { opacity: 1; pointer-events: auto; }
   .nav__burger { display: block; z-index: 102; }
 
-  /* Hero : photo plein cadre derrière le texte + espacements */
+  /* Hero : plein cadre immersif (le personnage entier laisserait des bandes vides sur mobile) */
   .hero__bg {
-    background-size: cover; background-position: 50% 12%;
+    background-size: cover; background-position: 50% 14%;
     -webkit-mask-image: none; mask-image: none;
   }
   .hero__scrim {

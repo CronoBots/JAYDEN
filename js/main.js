@@ -107,11 +107,22 @@
 
   if (player) {
     const audio = new Audio();
-    // précharge l'extrait dès l'ouverture (lecture instantanée au clic, sans autoplay)
     audio.preload = "auto";
-    audio.src = player.dataset.src;
-    audio.load();
     let ready = false;
+
+    // Précharge tout l'extrait dès l'ouverture de la page (téléchargement immédiat
+    // en mémoire) → lecture instantanée au clic, sans démarrage automatique.
+    // Le fetch n'est pas soumis aux restrictions de preload des navigateurs mobiles.
+    fetch(player.dataset.src)
+      .then((r) => (r.ok ? r.blob() : Promise.reject(r.status)))
+      .then((blob) => {
+        audio.src = URL.createObjectURL(blob);
+        audio.load();
+      })
+      .catch(() => {
+        audio.src = player.dataset.src;
+        audio.load();
+      });
 
     audio.addEventListener("loadedmetadata", () => {
       ready = true;
@@ -133,7 +144,7 @@
     });
 
     playBtn.addEventListener("click", () => {
-      if (!ready) {
+      if (!audio.src) {
         if (note) {
           note.textContent = "L'extrait audio sera bientôt en ligne.";
           note.style.color = "var(--gold)";
@@ -141,7 +152,8 @@
         return;
       }
       if (audio.paused) {
-        audio.play();
+        // play() démarre dès que le buffer est prêt (déjà préchargé à l'ouverture)
+        audio.play().catch(() => {});
         playIcon.setAttribute("d", PAUSE);
       } else {
         audio.pause();
