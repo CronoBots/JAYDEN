@@ -107,8 +107,10 @@
 
   if (player) {
     const audio = new Audio();
-    audio.preload = "metadata";
+    // précharge l'extrait dès l'ouverture (lecture instantanée au clic, sans autoplay)
+    audio.preload = "auto";
     audio.src = player.dataset.src;
+    audio.load();
     let ready = false;
 
     audio.addEventListener("loadedmetadata", () => {
