@@ -71,7 +71,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .section-title {
   font-family: var(--serif); font-weight: 500;
   font-size: clamp(2.1rem, 5vw, 3.6rem);
-  line-height: 1.05; letter-spacing: 0.02em; margin-top: 0.4rem;
+  line-height: 1.05; letter-spacing: 0.02em; margin-top: 0.4rem; text-wrap: balance;
 }
 
 /* Reveal on scroll */
@@ -300,7 +300,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .about__sound:hover { background: var(--gold); color: #17110a; transform: scale(1.07); }
 .about__sound svg { width: 20px; height: 20px; fill: currentColor; }
 .about__sound.is-on #aboutMuteSlash { display: none; }
-.about__body p { color: var(--muted); margin-bottom: 20px; font-size: 1.05rem; }
+.about__body p { color: var(--muted); margin-bottom: 20px; font-size: 1.05rem; text-wrap: pretty; }
 .about__body p.lead { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--text); line-height: 1.4; }
 .about__sign { font-family: var(--script); font-size: 2.6rem; color: var(--gold); margin-top: 10px; }
 
@@ -323,7 +323,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 
 /* ---------- CONTACT ---------- */
 .contact { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); }
-.contact__intro p { color: var(--muted); margin: 18px 0; max-width: 40ch; }
+.contact__intro p { color: var(--muted); margin: 18px 0; max-width: 52ch; text-wrap: pretty; }
 .contact__mail { font-family: var(--serif); font-size: 1.5rem; color: var(--gold-lite); letter-spacing: 0.03em; }
 .contact__socials { display: flex; gap: 18px; margin-top: 30px; }
 .contact__socials a { width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; color: var(--text); transition: 0.3s var(--ease); }
@@ -399,7 +399,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .single__cover:hover .single__play-badge,
 .single__cover:focus-visible .single__play-badge { opacity: 1; }
 .single__play-badge svg { width: 66px; height: 66px; fill: #fff; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)); }
-.single__desc { color: var(--muted); margin: 0 0 24px; max-width: 44ch; }
+.single__desc { color: var(--muted); margin: 0 0 24px; max-width: 60ch; text-wrap: pretty; }
 .single__listen { margin-bottom: 22px; }
 
 /* =========================================================
@@ -467,8 +467,13 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
     border-left: 1px solid var(--line);
   }
   .nav__social { inset: auto 0 40px auto; width: min(80vw,320px); flex-direction: row; background: none; backdrop-filter: none; padding: 0 40px; transform: none; border: none; justify-content: flex-start; z-index: 101; opacity: 0; pointer-events: none; transition: opacity .4s; }
+  /* Sélecteur de langue déplacé DANS le menu hamburger */
+  .lang { position: fixed; inset: auto 0 96px auto; width: min(80vw,320px); padding: 0 40px; justify-content: flex-start; gap: 10px; z-index: 101; opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .lang__opt { font-size: 1rem; letter-spacing: 0.14em; padding: 8px 6px; }
+  .lang__sep { font-size: 1rem; }
   body.menu-open .nav__links { transform: translateX(0); }
   body.menu-open .nav__social { opacity: 1; pointer-events: auto; }
+  body.menu-open .lang { opacity: 1; pointer-events: auto; }
   .nav__burger { display: block; z-index: 102; }
 
   /* Hero mobile EN PILE : texte (fond sombre) → photo dédiée → bandeau single.
