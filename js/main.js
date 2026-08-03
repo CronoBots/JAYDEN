@@ -143,6 +143,10 @@
       ready = false;
     });
 
+    // L'icône suit toujours l'état réel de l'audio (play <-> pause synchronisés)
+    audio.addEventListener("play", () => playIcon.setAttribute("d", PAUSE));
+    audio.addEventListener("pause", () => playIcon.setAttribute("d", PLAY));
+
     playBtn.addEventListener("click", () => {
       if (!audio.src) {
         if (note) {
@@ -151,14 +155,9 @@
         }
         return;
       }
-      if (audio.paused) {
-        // play() démarre dès que le buffer est prêt (déjà préchargé à l'ouverture)
-        audio.play().catch(() => {});
-        playIcon.setAttribute("d", PAUSE);
-      } else {
-        audio.pause();
-        playIcon.setAttribute("d", PLAY);
-      }
+      // play() démarre dès que le buffer est prêt (déjà préchargé à l'ouverture)
+      if (audio.paused) audio.play().catch(() => {});
+      else audio.pause();
     });
 
     bar.addEventListener("click", (e) => {
