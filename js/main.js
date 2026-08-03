@@ -52,7 +52,7 @@
       "contact.name": "Name", "contact.email": "Email", "contact.message": "Message",
       "contact.send": "Send",
       "footer.tag": "Voice. Guitar. Truth.",
-      "footer.copy": "© 2026 JAYDEN — All rights reserved · ",
+      "footer.copy": "© 2026 JAYDEN — All rights reserved",
       "footer.credit": "Website by",
       "mp.artist": "JAYDEN · Preview"
     },
@@ -100,7 +100,7 @@
       "contact.name": "Nom", "contact.email": "E-mail", "contact.message": "Message",
       "contact.send": "Envoyer",
       "footer.tag": "Voix. Guitare. Vérité.",
-      "footer.copy": "© 2026 JAYDEN — Tous droits réservés · ",
+      "footer.copy": "© 2026 JAYDEN — Tous droits réservés",
       "footer.credit": "Site réalisé par",
       "mp.artist": "JAYDEN · Extrait"
     }
@@ -316,16 +316,32 @@
     });
   }
 
-  /* ---------- Vidéo « vivante » À propos : son on / off ---------- */
+  /* ---------- Vidéo « vivante » À propos ---------- */
   const aboutVideo = document.getElementById("aboutVideo");
   const aboutSound = document.getElementById("aboutSound");
-  if (aboutVideo && aboutSound) {
-    aboutSound.addEventListener("click", () => {
-      aboutVideo.muted = !aboutVideo.muted;
-      const on = !aboutVideo.muted;
-      aboutSound.classList.toggle("is-on", on);
-      aboutSound.setAttribute("aria-pressed", String(on));
-      if (on) aboutVideo.play().catch(() => {});
-    });
+  if (aboutVideo) {
+    // Met la vidéo en pause dès qu'elle n'est plus à l'écran, la relance à son retour.
+    if ("IntersectionObserver" in window) {
+      const vObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) aboutVideo.play().catch(() => {});
+            else aboutVideo.pause();
+          });
+        },
+        { threshold: 0.25 }
+      );
+      vObs.observe(aboutVideo);
+    }
+    // Son on / off
+    if (aboutSound) {
+      aboutSound.addEventListener("click", () => {
+        aboutVideo.muted = !aboutVideo.muted;
+        const on = !aboutVideo.muted;
+        aboutSound.classList.toggle("is-on", on);
+        aboutSound.setAttribute("aria-pressed", String(on));
+        if (on) aboutVideo.play().catch(() => {});
+      });
+    }
   }
 })();
