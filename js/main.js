@@ -199,9 +199,13 @@
     revealer.observe(el);
   });
 
-  /* ---------- Parallaxe douce du hero ---------- */
+  /* ---------- Parallaxe douce du hero (PC uniquement) ----------
+     Désactivée sur mobile : la photo plein écran ne doit pas bouger/zoomer au scroll. */
   const heroBg = document.querySelector(".hero__bg");
-  if (heroBg && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const allowParallax = heroBg
+    && !matchMedia("(prefers-reduced-motion: reduce)").matches
+    && matchMedia("(min-width: 761px)").matches;
+  if (allowParallax) {
     window.addEventListener(
       "scroll",
       () => {
