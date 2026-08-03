@@ -88,82 +88,67 @@
     );
   }
 
-  /* ---------- Lecteur audio ---------- */
-  const player = document.getElementById("player");
-  const playBtn = document.getElementById("playBtn");
-  const playIcon = document.getElementById("playIcon");
-  const bar = document.getElementById("bar");
-  const fill = document.getElementById("fill");
-  const curEl = document.getElementById("cur");
-  const durEl = document.getElementById("dur");
-  const note = document.getElementById("playerNote");
+  /* ---------- Lecteur fixe (barre en bas) ---------- */
+  const mp = document.getElementById("miniplayer");
+  if (mp) {
+    const mpIcon = document.getElementById("mpIcon");
+    const mpBar = document.getElementById("mpBar");
+    const mpFill = document.getElementById("mpFill");
+    const mpCur = document.getElementById("mpCur");
+    const mpDur = document.getElementById("mpDur");
 
-  const PLAY = "M8 5v14l11-7z";
-  const PAUSE = "M6 5h4v14H6zM14 5h4v14h-4z";
-  const fmt = (s) =>
-    isFinite(s)
-      ? Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0")
-      : "--:--";
+    const PLAY = "M8 5v14l11-7z";
+    const PAUSE = "M6 5h4v14H6zM14 5h4v14h-4z";
+    const fmt = (s) =>
+      isFinite(s)
+        ? Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0")
+        : "0:00";
 
-  if (player) {
     const audio = new Audio();
     audio.preload = "auto";
-    let ready = false;
 
-    // Précharge tout l'extrait dès l'ouverture de la page (téléchargement immédiat
-    // en mémoire) → lecture instantanée au clic, sans démarrage automatique.
-    // Le fetch n'est pas soumis aux restrictions de preload des navigateurs mobiles.
-    fetch(player.dataset.src)
+    // Précharge tout l'extrait dès l'ouverture (téléchargement immédiat en mémoire)
+    // → lecture instantanée au clic, sans démarrage automatique.
+    fetch(mp.dataset.src)
       .then((r) => (r.ok ? r.blob() : Promise.reject(r.status)))
-      .then((blob) => {
-        audio.src = URL.createObjectURL(blob);
-        audio.load();
-      })
-      .catch(() => {
-        audio.src = player.dataset.src;
-        audio.load();
-      });
+      .then((blob) => { audio.src = URL.createObjectURL(blob); audio.load(); })
+      .catch(() => { audio.src = mp.dataset.src; audio.load(); });
 
-    audio.addEventListener("loadedmetadata", () => {
-      ready = true;
-      durEl.textContent = fmt(audio.duration);
-      if (note) note.textContent = "Extrait du nouveau single.";
-    });
+    audio.addEventListener("loadedmetadata", () => { mpDur.textContent = fmt(audio.duration); });
     audio.addEventListener("timeupdate", () => {
       const p = (audio.currentTime / audio.duration) * 100 || 0;
-      fill.style.right = 100 - p + "%";
-      curEl.textContent = fmt(audio.currentTime);
+      mpFill.style.right = 100 - p + "%";
+      mpCur.textContent = fmt(audio.currentTime);
     });
-    audio.addEventListener("ended", () => {
-      playIcon.setAttribute("d", PLAY);
-      fill.style.right = "100%";
-    });
-    // Fichier audio absent pour l'instant : on garde les liens plateformes actifs.
-    audio.addEventListener("error", () => {
-      ready = false;
-    });
+    audio.addEventListener("ended", () => { mpFill.style.right = "100%"; });
 
     // L'icône suit toujours l'état réel de l'audio (play <-> pause synchronisés)
-    audio.addEventListener("play", () => playIcon.setAttribute("d", PAUSE));
-    audio.addEventListener("pause", () => playIcon.setAttribute("d", PLAY));
+    audio.addEventListener("play", () => mpIcon.setAttribute("d", PAUSE));
+    audio.addEventListener("pause", () => mpIcon.setAttribute("d", PLAY));
 
-    playBtn.addEventListener("click", () => {
-      if (!audio.src) {
-        if (note) {
-          note.textContent = "L'extrait audio sera bientôt en ligne.";
-          note.style.color = "var(--gold)";
-        }
-        return;
-      }
-      // play() démarre dès que le buffer est prêt (déjà préchargé à l'ouverture)
+    const toggle = () => {
+      if (!audio.src) return;
       if (audio.paused) audio.play().catch(() => {});
       else audio.pause();
-    });
+    };
 
-    bar.addEventListener("click", (e) => {
-      if (!ready) return;
-      const rect = bar.getBoundingClientRect();
-      audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+    document.getElementById("mpPlay").addEventListener("click", toggle);
+    const coverPlay = document.getElementById("coverPlay");
+    const sectionPlay = document.getElementById("sectionPlay");
+    if (coverPlay) coverPlay.addEventListener("click", toggle);
+    if (sectionPlay) sectionPlay.addEventListener("click", toggle);
+
+    const seek = (clientX) => {
+      if (!isFinite(audio.duration)) return;
+      const rect = mpBar.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      audio.currentTime = ratio * audio.duration;
+    };
+    mpBar.addEventListener("click", (e) => seek(e.clientX));
+    mpBar.addEventListener("keydown", (e) => {
+      if (!isFinite(audio.duration)) return;
+      if (e.key === "ArrowRight") audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+      else if (e.key === "ArrowLeft") audio.currentTime = Math.max(0, audio.currentTime - 5);
     });
   }
 

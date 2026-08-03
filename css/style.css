@@ -39,6 +39,7 @@ body {
   overflow-x: hidden;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
+  padding-bottom: 76px; /* place pour le lecteur fixe en bas */
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -337,8 +338,8 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 
 /* Back to top */
 .to-top {
-  position: fixed; right: 26px; bottom: 26px; z-index: 90;
-  width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line);
+  position: fixed; right: 22px; bottom: 92px; z-index: 96;
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line);
   background: var(--panel); color: var(--gold); display: grid; place-items: center;
   opacity: 0; pointer-events: none; transition: opacity 0.4s, transform 0.4s var(--ease);
   backdrop-filter: blur(10px);
@@ -346,6 +347,66 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .to-top.show { opacity: 1; pointer-events: auto; }
 .to-top:hover { background: var(--gold); color: #17110a; }
 .to-top svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* =========================================================
+   HERO — citation sur la photo
+   ========================================================= */
+.hero__quote {
+  position: absolute; z-index: 2; right: clamp(24px, 5vw, 72px); bottom: 108px;
+  max-width: 320px; text-align: right;
+  font-family: var(--serif); font-style: italic; font-size: 1.24rem; line-height: 1.5;
+  color: var(--text); text-shadow: 0 2px 18px rgba(0,0,0,0.7);
+}
+.hero__quote cite {
+  display: block; font-style: normal; font-family: var(--script);
+  font-size: 2.1rem; color: var(--gold); margin-top: 6px;
+}
+
+/* =========================================================
+   SINGLE — pochette cliquable (déclenche le lecteur)
+   ========================================================= */
+.single__cover {
+  display: block; width: 100%; padding: 0; background: none; cursor: pointer;
+}
+.single__play-badge {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background: rgba(0,0,0,0.28); opacity: 0; transition: opacity 0.35s var(--ease);
+}
+.single__cover:hover .single__play-badge,
+.single__cover:focus-visible .single__play-badge { opacity: 1; }
+.single__play-badge svg { width: 66px; height: 66px; fill: #fff; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)); }
+.single__desc { color: var(--muted); margin: 0 0 24px; max-width: 44ch; }
+.single__listen { margin-bottom: 22px; }
+
+/* =========================================================
+   LECTEUR FIXE (barre en bas)
+   ========================================================= */
+.miniplayer {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 95;
+  display: flex; align-items: center; gap: 16px;
+  height: 76px; padding: 0 clamp(16px, 4vw, 40px);
+  background: rgba(9, 7, 5, 0.86); border-top: 1px solid var(--line);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+.mp__cover {
+  width: 52px; height: 52px; flex: 0 0 auto; border-radius: 5px; object-fit: cover;
+  border: 1px solid var(--line);
+}
+.mp__meta { display: flex; flex-direction: column; gap: 2px; flex: 0 0 auto; width: 210px; min-width: 0; }
+.mp__title { font-family: var(--serif); font-size: 1.02rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mp__artist { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.mp__play {
+  flex: 0 0 auto; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--gold); color: #17110a; display: grid; place-items: center;
+  transition: transform 0.25s var(--ease), background 0.25s;
+}
+.mp__play:hover { transform: scale(1.06); background: var(--gold-lite); }
+.mp__play svg { width: 19px; height: 19px; fill: currentColor; }
+.mp__progress { flex: 1; display: flex; align-items: center; gap: 14px; min-width: 0; }
+.mp__bar { position: relative; flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.14); cursor: pointer; }
+.mp__bar:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.mp__fill { position: absolute; inset: 0 100% 0 0; background: linear-gradient(90deg, var(--gold-deep), var(--gold-lite)); border-radius: 3px; }
+.mp__time { font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 34px; text-align: center; }
 
 /* =========================================================
    RESPONSIVE
@@ -390,11 +451,12 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   .hero__scrim { display: none; }
   .hero__title { width: auto; max-width: 100%; font-size: clamp(3.2rem, 16vw, 5rem); line-height: 1.08; }
   .hero__subtitle { font-size: clamp(1.15rem, 5.4vw, 1.7rem); }
-  .hero__lead { margin-bottom: 30px; }
-  .hero__content .btn { width: 100%; justify-content: center; }
-  .hero__strip { order: 3; margin-top: 0; }
-  .hero__strip-inner { padding: 34px 20px 40px; gap: 24px; }
-  .strip__single .btn { width: auto; }
+  .hero__lead { margin-bottom: 0; }
+  .hero__quote {
+    position: static; order: 3; max-width: none; text-align: center;
+    padding: 30px 24px 8px; font-size: 1.18rem;
+  }
+  .hero__quote cite { font-size: 2rem; }
 
   /* Sections plus compactes (moins de zones vides au scroll) */
   .section { padding: 64px 0 72px; }
@@ -409,6 +471,18 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   .player { flex-wrap: wrap; }
   .news-item { grid-template-columns: auto 1fr; }
   .news-item__tag { grid-column: 2; justify-self: start; margin-top: 6px; }
+
+  /* Lecteur fixe compact : barre de progression fine en haut, sans les temps */
+  body { padding-bottom: 64px; }
+  .miniplayer { height: 64px; gap: 12px; padding: 0 14px; }
+  .mp__cover { width: 44px; height: 44px; }
+  .mp__meta { width: auto; flex: 1; }
+  .mp__title { font-size: 0.95rem; }
+  .mp__play { width: 44px; height: 44px; }
+  .mp__time { display: none; }
+  .mp__progress { position: absolute; left: 0; right: 0; top: 0; gap: 0; }
+  .mp__bar { height: 3px; border-radius: 0; }
+  .to-top { bottom: 80px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
