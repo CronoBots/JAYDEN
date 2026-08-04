@@ -24,7 +24,7 @@ Une page unique, déroulante, dans un esprit sombre & doré (inspiration : le si
     │   ├── mockup-reference.jpg     # Maquette de référence (aussi image de partage Open Graph)
     │   └── logo-pack.jpg            # Pack logos (référence)
     ├── video/
-    │   └── teaser.mov               # Teaser IA (voir note ci-dessous)
+    │   └── teaser.mp4               # Teaser IA (MP4 H.264, lecture universelle)
     └── audio/
         └── (à venir) somethin-inside-my-mind.mp3
 ```
@@ -40,9 +40,7 @@ Une page unique, déroulante, dans un esprit sombre & doré (inspiration : le si
 
 ## À brancher plus tard (emplacements déjà prêts)
 - **Extrait audio du single** → déposer le fichier `assets/audio/somethin-inside-my-mind.mp3`. Le lecteur le détecte automatiquement.
-- **Vidéo** → le fichier `.mov` n'est pas lu par tous les navigateurs (surtout hors Safari). Idéalement ajouter une version **MP4 (H.264)** :
-  déposer `assets/video/teaser.mp4` puis ajouter dans `index.html`, avant la source `.mov` :
-  `<source src="assets/video/teaser.mp4" type="video/mp4">`
+- **Vidéo** → le teaser est en **MP4 (H.264/AAC)** (`assets/video/teaser.mp4`), lisible par tous les navigateurs. Pour le remplacer, déposer un nouveau `teaser.mp4` au même emplacement.
 - **Liens réseaux/plateformes** → remplacer les URL génériques (instagram.com, open.spotify.com, etc.) par les vrais profils de JAYDEN dans `index.html`.
 - **Newsletter** → le formulaire fonctionne côté visuel ; le relier à un service (Mailchimp, Brevo…) pour collecter réellement les e-mails.
 - **Contact** → utilise `mailto:contact@jaydenmusic.com` (à adapter à la vraie adresse).
