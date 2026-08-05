@@ -56,6 +56,12 @@
       "footer.tag": "Voice. Guitar. Truth.",
       "footer.copy": "© 2026 JAYDEN — All rights reserved",
       "footer.credit": "Website by",
+      "footer.legal": "Legal notice",
+      "footer.privacy": "Privacy policy",
+      "footer.cookies": "Cookie policy",
+      "cookie.text": "This site uses only essential storage (language &amp; playback). No tracking, no advertising. <a href=\"legal.html#cookies\">Learn more</a>.",
+      "cookie.ok": "Got it",
+      "legal.back": "← Back to site",
       "mp.artist": "JAYDEN · Preview"
     },
     fr: {
@@ -106,6 +112,12 @@
       "footer.tag": "Voix. Guitare. Vérité.",
       "footer.copy": "© 2026 JAYDEN — Tous droits réservés",
       "footer.credit": "Site réalisé par",
+      "footer.legal": "Mentions légales",
+      "footer.privacy": "Confidentialité",
+      "footer.cookies": "Cookies",
+      "cookie.text": "Ce site n'utilise que du stockage essentiel (langue &amp; lecture). Aucun traçage, aucune publicité. <a href=\"legal.html#cookies\">En savoir plus</a>.",
+      "cookie.ok": "J'ai compris",
+      "legal.back": "← Retour au site",
       "mp.artist": "JAYDEN · Extrait"
     }
   };
@@ -124,6 +136,10 @@
       if (v != null) el.setAttribute("placeholder", v);
     });
     if (I18N[lang]["doc.title"]) document.title = I18N[lang]["doc.title"];
+    // Pages avec long texte bilingue (ex. mentions légales) : bascule des blocs EN/FR
+    document.querySelectorAll("[data-lang-block]").forEach((el) => {
+      el.style.display = el.getAttribute("data-lang-block") === lang ? "" : "none";
+    });
     langBtns.forEach((b) => b.classList.toggle("is-on", b.dataset.lang === lang));
     try { localStorage.setItem("jayden_lang", lang); } catch (e) {}
   }
@@ -132,40 +148,44 @@
   try { savedLang = localStorage.getItem("jayden_lang") || "en"; } catch (e) {}
   applyLang(savedLang);
 
-  /* ---------- Nav : fond au scroll ---------- */
+  /* ---------- Nav : fond au scroll + bouton retour en haut ---------- */
   const nav = document.getElementById("nav");
   const toTop = document.getElementById("toTop");
   // Sur mobile, le bouton « remonter » apparaît dès qu'on commence à scroller ;
   // sur PC on attend d'avoir bien descendu.
   const isMobile = window.matchMedia("(max-width: 760px)");
-  const onScroll = () => {
-    const y = window.scrollY;
-    nav.classList.toggle("scrolled", y > 40);
-    toTop.classList.toggle("show", y > (isMobile.matches ? 60 : 700));
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  if (isMobile.addEventListener) isMobile.addEventListener("change", onScroll);
-  onScroll();
-
-  /* ---------- Bouton retour en haut ---------- */
-  toTop.addEventListener("click", () => {
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
-  });
+  if (nav || toTop) {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (nav) nav.classList.toggle("scrolled", y > 40);
+      if (toTop) toTop.classList.toggle("show", y > (isMobile.matches ? 60 : 700));
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (isMobile.addEventListener) isMobile.addEventListener("change", onScroll);
+    onScroll();
+  }
+  if (toTop) {
+    toTop.addEventListener("click", () => {
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    });
+  }
 
   /* ---------- Menu mobile ---------- */
   const burger = document.getElementById("burger");
   const closeMenu = () => {
     document.body.classList.remove("menu-open");
-    burger.setAttribute("aria-expanded", "false");
+    if (burger) burger.setAttribute("aria-expanded", "false");
   };
-  burger.addEventListener("click", () => {
-    const open = document.body.classList.toggle("menu-open");
-    burger.setAttribute("aria-expanded", String(open));
-  });
-  document.querySelectorAll("#navLinks a").forEach((a) =>
-    a.addEventListener("click", closeMenu)
-  );
+  if (burger) {
+    burger.addEventListener("click", () => {
+      const open = document.body.classList.toggle("menu-open");
+      burger.setAttribute("aria-expanded", String(open));
+    });
+    document.querySelectorAll("#navLinks a").forEach((a) =>
+      a.addEventListener("click", closeMenu)
+    );
+  }
 
   /* ---------- Lien actif selon la section ---------- */
   const sections = [...document.querySelectorAll("section[id]")];
@@ -364,6 +384,23 @@
         aboutSound.classList.toggle("is-on", on);
         aboutSound.setAttribute("aria-pressed", String(on));
         if (on) aboutVideo.play().catch(() => {});
+      });
+    }
+  }
+
+  /* ---------- Bandeau cookies ---------- */
+  const cookieBar = document.getElementById("cookieBar");
+  if (cookieBar) {
+    let consent = null;
+    try { consent = localStorage.getItem("jayden_cookie_consent"); } catch (e) {}
+    if (!consent) {
+      setTimeout(() => cookieBar.classList.add("show"), 900);
+    }
+    const accept = document.getElementById("cookieAccept");
+    if (accept) {
+      accept.addEventListener("click", () => {
+        try { localStorage.setItem("jayden_cookie_consent", "ok"); } catch (e) {}
+        cookieBar.classList.remove("show");
       });
     }
   }
