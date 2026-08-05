@@ -88,12 +88,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: background 0.5s var(--ease), padding 0.5s var(--ease), border-color 0.5s var(--ease);
   border-bottom: 1px solid transparent;
 }
+.nav::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(9, 7, 5, 0.62) 0%, rgba(9, 7, 5, 0) 100%);
+  opacity: 1; transition: opacity 0.5s var(--ease);
+}
 .nav.scrolled {
   background: rgba(9, 7, 5, 0.82);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   padding-top: 14px; padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
 }
+.nav.scrolled::before { opacity: 0; }
 .nav__logo img { height: 34px; width: auto; transition: height 0.5s var(--ease); }
 .nav.scrolled .nav__logo img { height: 28px; }
 
@@ -138,7 +144,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .hero__bg {
   position: absolute; inset: 0; z-index: 0;
   /* Photo nettement zoomée, calée à droite : occupe ~3/5 de l'écran */
-  background: url("../assets/img/hero-dark.png") no-repeat right 12% / auto 210%;
+  background: url("../assets/img/hero-dark.png") no-repeat right 28% / auto 210%;
   /* Le bord gauche ET le bas de l'image se fondent dans le noir */
   -webkit-mask-image:
     linear-gradient(90deg, transparent 0%, transparent 34%, rgba(0,0,0,0.5) 50%, #000 70%),
@@ -300,7 +306,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .discography { margin-top: 90px; }
 .discography h3 { text-align: center; font-family: var(--serif); font-size: 1.6rem; margin-bottom: 8px; }
 .discography p { text-align: center; color: var(--muted); margin-bottom: 40px; }
-.disc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 26px; }
+.disc-grid { display: grid; grid-template-columns: repeat(auto-fit, 200px); gap: 28px; justify-content: center; }
 .disc-card { text-align: center; }
 .disc-card__art {
   aspect-ratio: 1; border-radius: 5px; border: 1px dashed var(--line);
@@ -352,6 +358,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .news-item__date { text-align: center; min-width: 68px; }
 .news-item__date .d { font-family: var(--serif); font-size: 2rem; line-height: 1; color: var(--gold-lite); }
 .news-item__date .m { font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); }
+.news-item__note { color: var(--gold); font-size: 1.5rem; }
 .news-item__body h4 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 3px; }
 .news-item__body span { color: var(--muted); font-size: 0.88rem; }
 .news-item__tag {
