@@ -517,7 +517,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   .hero__bg {
     position: absolute; top: 0; left: 0; right: 0; order: 0;
     width: 100%; height: 100svh;
-    background: url("../assets/img/hero-gold.jpg") no-repeat 50% 10% / cover;
+    background: url("../assets/img/hero-dark.png") no-repeat 50% 8% / cover;
     -webkit-mask-image: none; mask-image: none;
   }
   .hero__bg::after {
