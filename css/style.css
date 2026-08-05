@@ -185,12 +185,10 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 }
 .hero__lead { margin: 26px 0 30px; font-size: 1rem; color: var(--muted); letter-spacing: 0.02em; white-space: nowrap; }
 
-/* Prochain concert, affiché discrètement dans le hero.
-   PC : positionné en bas de la colonne de contenu (comme avant le déplacement HTML). */
+/* Prochain concert, affiché juste sous l'accroche (dans le flux du contenu du hero)
+   -> reste toujours bien placé quelle que soit la résolution. */
 .hero__event {
-  position: absolute; z-index: 2;
-  left: calc(max(0px, (100vw - var(--maxw)) / 2) + clamp(20px, 5vw, 64px));
-  bottom: 194px;
+  margin-top: 8px;
   display: inline-flex; align-items: center; gap: 10px;
   padding: 10px 18px; border-radius: 999px;
   border: 1px solid rgba(217, 172, 82, 0.42);
@@ -564,11 +562,10 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
     padding: 0; margin-top: 20px; font-size: 1.06rem;
   }
   .hero__quote cite { font-size: 2.4rem; }
-  /* Badge San Remo : déplacé sous la photo, centré sur le fond noir, sur une seule ligne */
+  /* Badge San Remo : dans le hero, sous l'accroche, pastille compacte centrée */
   .hero__event {
-    position: static; left: auto; bottom: auto;
-    display: flex; justify-content: center; flex-wrap: nowrap; white-space: nowrap;
-    margin: 42px 16px 8px;
+    display: inline-flex; white-space: nowrap; max-width: 100%;
+    margin: 26px 0 2px;
   }
 
   /* Sections plus compactes (moins de zones vides au scroll) */
