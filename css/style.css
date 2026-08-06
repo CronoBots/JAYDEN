@@ -91,6 +91,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav.scrolled::before { opacity: 0; }
 .nav__logo img { height: 34px; width: auto; transition: height 0.5s var(--ease); }
 .nav.scrolled .nav__logo img { height: 28px; }
+/* Le logo de la barre reste masqué tant que le grand logo du hero est visible ;
+   il apparaît en fondu une fois celui-ci sorti de l'écran (géré en JS). */
+.nav .nav__logo {
+  opacity: 0; visibility: hidden; transform: translateY(-4px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), visibility 0.5s;
+}
+.nav.logo-visible .nav__logo { opacity: 1; visibility: visible; transform: none; }
 
 .nav__links { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 40px); }
 .nav__links a {
@@ -548,8 +555,9 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   .hero__inner {
     position: relative; z-index: 2; order: 1;
     min-height: 100svh; display: flex; align-items: flex-end;
-    /* JAYDEN remonté un peu plus haut (plus d'espace sous le bloc) */
-    padding: 90px 22px calc(76px + 96px);
+    /* Bloc ancré en bas : padding réduit pour descendre la phrase de signature
+       dans l'espace vide et limiter le vide sous le hero */
+    padding: 90px 22px calc(76px + 40px);
   }
   /* Contenu du héros centré horizontalement sur mobile */
   .hero__content { max-width: none; width: 100%; text-align: center; }
@@ -560,7 +568,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   /* Citation de l'artiste : centrée, sur une seule ligne, agrandie */
   .hero__quote {
     position: static; max-width: none; text-align: center; white-space: nowrap;
-    padding: 0; margin-top: 26px; font-size: clamp(1rem, 5.1vw, 1.9rem);
+    padding: 0; margin-top: 34px; font-size: clamp(1rem, 5.1vw, 1.9rem);
   }
   /* Pastille « prochain concert » : peut passer sur 2 lignes sur très petits écrans */
   .hero__event {

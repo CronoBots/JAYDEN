@@ -166,6 +166,20 @@
     if (isMobile.addEventListener) isMobile.addEventListener("change", onScroll);
     onScroll();
   }
+  // Le logo de la barre n'apparaît que lorsque le grand logo du hero
+  // n'est plus visible à l'écran (sinon le pseudo serait affiché en double).
+  if (nav) {
+    const heroLogo = document.querySelector(".hero__title");
+    if (heroLogo && "IntersectionObserver" in window) {
+      const logoObs = new IntersectionObserver(
+        ([entry]) => nav.classList.toggle("logo-visible", !entry.isIntersecting),
+        { threshold: 0 }
+      );
+      logoObs.observe(heroLogo);
+    } else {
+      nav.classList.add("logo-visible");
+    }
+  }
   if (toTop) {
     toTop.addEventListener("click", () => {
       const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
