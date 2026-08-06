@@ -451,32 +451,17 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   margin: 6px 0 0 auto; opacity: 0.9;
   filter: drop-shadow(0 0 6px rgba(255,255,255,0.25));
 }
-/* Les lettres S · O · S de « Save Our Soul » en doré (un peu plus jaune/or) */
-.hero__quote .sos { color: #f3ca5a; font-style: normal; font-weight: 600; }
-/* Halo : chaque lettre S · O · S s'allume au rythme des 3 groupes du morse
-   (··· → S, ——— → O, ··· → S). La lueur flambe puis reste bien visible,
-   avec une légère respiration lumineuse. */
-.hero__quote .sos.lit {
-  color: #f3ca5a; /* doré plus jaune/or */
-  animation: sosHalo 1.15s var(--ease) forwards,
-             sosGlow 3.4s ease-in-out 1.15s infinite;
+/* Les lettres S · O · S de « Save Our Soul » : blanches au départ (comme la phrase),
+   elles passent au jaune l'une après l'autre, au rythme des 3 groupes du morse
+   (··· → S, ——— → O, ··· → S). Aucun halo, juste un changement de couleur. */
+.hero__quote .sos {
+  color: var(--text); font-style: normal; font-weight: 600;
+  transition: color 0.6s var(--ease);
 }
-/* Persistance (y compris après un changement de langue qui recrée les lettres) */
-.hero__quote.is-sos-lit .sos {
-  color: #f3ca5a;
-  text-shadow: 0 0 5px rgba(255,241,196,0.95), 0 0 13px rgba(245,206,92,0.95), 0 0 28px rgba(233,183,70,0.8), 0 0 50px rgba(217,172,82,0.5);
-}
-@keyframes sosHalo {
-  0%   { text-shadow: 0 0 0 rgba(255,241,196,0); }
-  25%  { text-shadow: 0 0 7px rgba(255,247,214,1), 0 0 18px rgba(245,206,92,1), 0 0 38px rgba(233,183,70,1), 0 0 66px rgba(217,172,82,0.7); }
-  100% { text-shadow: 0 0 5px rgba(255,241,196,0.95), 0 0 13px rgba(245,206,92,0.95), 0 0 28px rgba(233,183,70,0.8), 0 0 50px rgba(217,172,82,0.5); }
-}
-@keyframes sosGlow {
-  0%, 100% { text-shadow: 0 0 5px rgba(255,241,196,0.9), 0 0 13px rgba(245,206,92,0.9), 0 0 28px rgba(233,183,70,0.72), 0 0 50px rgba(217,172,82,0.45); }
-  50%      { text-shadow: 0 0 8px rgba(255,247,214,1), 0 0 20px rgba(245,206,92,1), 0 0 40px rgba(233,183,70,0.9), 0 0 66px rgba(217,172,82,0.6); }
-}
+.hero__quote .sos.lit,
+.hero__quote.is-sos-lit .sos { color: #f3ca5a; } /* jaune/or (la seconde règle persiste au changement de langue) */
 @media (prefers-reduced-motion: reduce) {
-  .hero__quote .sos.lit { animation: none; }
+  .hero__quote .sos { transition: none; }
 }
 
 /* =========================================================
