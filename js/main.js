@@ -65,7 +65,7 @@
       "doc.title": "JAYDEN — Site officiel · Voix. Guitare. Vérité.",
       "nav.home": "Accueil", "nav.music": "Musique", "nav.videos": "Vidéos",
       "nav.about": "À propos", "nav.news": "Actus", "nav.contact": "Contact",
-      "hero.quote": "“What if a sound could <span class=\"sos\">S</span>ave <span class=\"sos\">O</span>ur <span class=\"sos\">S</span>oul?”",
+      "hero.quote": "« Et si un son pouvait <span class=\"sos\">S</span>ave <span class=\"sos\">O</span>ur <span class=\"sos\">S</span>oul ? »",
       "hero.quoteCite": "Jayden",
       "hero.next": "Prochain live",
       "music.label": "La musique", "music.title": "Le nouveau single",
