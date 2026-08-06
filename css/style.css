@@ -309,6 +309,13 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .news-item__date .m { font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); }
 .news-item__note { color: var(--gold); font-size: 1.5rem; }
 .news-item__body h4 { font-family: var(--serif); font-size: 1.3rem; margin-bottom: 3px; }
+/* Lien vers le site officiel du festival (Sanremo Rock) */
+.news-item__link { color: inherit; transition: color 0.25s var(--ease); }
+.news-item__link::after {
+  content: "↗"; font-size: 0.72em; margin-left: 6px; color: var(--gold); opacity: 0.75;
+  vertical-align: 0.08em;
+}
+.news-item__link:hover, .news-item__link:focus-visible { color: var(--gold-lite); }
 .news-item__body span { color: var(--muted); font-size: 0.88rem; }
 .news-item__tag {
   font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
