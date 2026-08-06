@@ -445,19 +445,19 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   color: var(--text); text-shadow: 0 2px 18px rgba(0,0,0,0.7);
 }
 .hero__quote > span { display: block; }
-/* Les lettres S · O · S de « Save Our Soul » en doré */
-.hero__quote .sos { color: var(--gold-lite); font-style: normal; font-weight: 600; }
+/* Les lettres S · O · S de « Save Our Soul » en doré (un peu plus jaune/or) */
+.hero__quote .sos { color: #f3ca5a; font-style: normal; font-weight: 600; }
 /* Halo : chaque lettre S · O · S s'allume au rythme des 3 groupes du morse
    (··· → S, ——— → O, ··· → S). La lueur flambe puis reste bien visible,
    avec une légère respiration lumineuse. */
 .hero__quote .sos.lit {
-  color: var(--gold-lite); /* doré, comme le logo (plus de blanc) */
+  color: #f3ca5a; /* doré plus jaune/or */
   animation: sosHalo 1.15s var(--ease) forwards,
              sosGlow 3.4s ease-in-out 1.15s infinite;
 }
 /* Persistance (y compris après un changement de langue qui recrée les lettres) */
 .hero__quote.is-sos-lit .sos {
-  color: var(--gold-lite);
+  color: #f3ca5a;
   text-shadow: 0 0 20px rgba(244,223,164,1), 0 0 46px rgba(217,172,82,0.9), 0 0 84px rgba(217,172,82,0.55);
 }
 @keyframes sosHalo {
