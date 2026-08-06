@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAYDEN — Statistiques</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+
+  <!-- Polices (sans bloquer le rendu) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
+
+  <!-- Carte du monde (jsVectorMap) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/jsvectormap.min.css">
+
+  <style>
+    :root{
+      --bg:#0b0908; --bg-2:#100c09; --panel:rgba(24,18,12,.72);
+      --gold:#d9ac52; --gold-lite:#f3ca5a; --gold-deep:#b8862b;
+      --text:#ece4d6; --muted:#9c8f7c; --line:rgba(217,172,82,.22);
+      --serif:"Cormorant Garamond",Georgia,serif; --sans:"Jost","Helvetica Neue",Arial,sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{background:var(--bg)}
+    body{
+      font-family:var(--sans); background:
+        radial-gradient(1200px 700px at 80% -10%, rgba(217,172,82,.10), transparent 60%),
+        var(--bg);
+      color:var(--text); min-height:100vh; line-height:1.5;
+      -webkit-font-smoothing:antialiased; padding:clamp(20px,4vw,48px);
+    }
+    .wrap{max-width:1180px;margin:0 auto}
+
+    header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+    .brand{display:flex;flex-direction:column;gap:4px}
+    .brand .label{font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold)}
+    .brand h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,4vw,2.8rem);line-height:1;letter-spacing:.02em}
+    .brand h1 b{color:var(--gold-lite);font-weight:700}
+    .updated{font-size:.72rem;color:var(--muted);letter-spacing:.08em}
+    .refresh{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);color:var(--text);
+      background:rgba(217,172,82,.06);border-radius:999px;padding:9px 16px;font-size:.78rem;letter-spacing:.1em;
+      text-transform:uppercase;cursor:pointer;transition:.25s}
+    .refresh:hover{border-color:var(--gold);background:rgba(217,172,82,.14)}
+
+    /* Tuiles de stats */
+    .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+    .tile{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;
+      backdrop-filter:blur(6px)}
+    .tile .k{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+    .tile .v{font-family:var(--serif);font-weight:700;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.05;
+      color:var(--gold-lite);margin-top:6px;font-variant-numeric:tabular-nums}
+
+    /* Grille carte + pays */
+    .grid{display:grid;grid-template-columns:1.7fr 1fr;gap:20px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .card h2{font-family:var(--serif);font-weight:600;font-size:1.25rem;padding:18px 22px 0;letter-spacing:.02em}
+    .card .sub{font-size:.72rem;color:var(--muted);padding:2px 22px 0;letter-spacing:.06em}
+
+    #map{width:100%;height:clamp(340px,52vw,540px);margin-top:6px}
+    /* Points de connexion : dorés + lueur + pulsation douce */
+    .jvm-marker{filter:drop-shadow(0 0 5px rgba(243,202,90,.9));animation:pulse 2.6s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:.85}50%{opacity:1}}
+    .jvm-tooltip{background:#17110b !important;border:1px solid var(--line) !important;color:var(--text) !important;
+      font-family:var(--sans) !important;border-radius:8px !important;padding:6px 10px !important;font-size:.8rem !important}
+
+    /* Liste pays */
+    .countries{padding:14px 10px 8px;max-height:540px;overflow:auto}
+    .row{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px}
+    .row+.row{border-top:1px solid rgba(217,172,82,.10)}
+    .row .flag{font-size:1.15rem;width:26px;text-align:center}
+    .row .name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.92rem}
+    .row .bar{flex:0 0 90px;height:6px;border-radius:4px;background:rgba(255,255,255,.08);position:relative;overflow:hidden}
+    .row .bar i{position:absolute;inset:0 100% 0 0;background:linear-gradient(90deg,var(--gold-deep),var(--gold-lite))}
+    .row .cnt{flex:0 0 auto;font-variant-numeric:tabular-nums;color:var(--gold-lite);font-size:.9rem;min-width:34px;text-align:right}
+
+    .note{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;line-height:1.7}
+    .note code{background:rgba(217,172,82,.12);padding:2px 7px;border-radius:5px;color:var(--gold-lite);font-size:.85em}
+    .note a{color:var(--gold-lite)}
+    .muted{color:var(--muted)}
+    footer.foot{margin-top:26px;text-align:center;color:var(--muted);font-size:.72rem;letter-spacing:.1em}
+    @media(max-width:860px){.tiles{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <span class="label">Espace privé</span>
+        <h1>JAYDEN — <b>Statistiques</b></h1>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+        <button class="refresh" id="refresh">⟳ Actualiser</button>
+        <span class="updated" id="updated"></span>
+      </div>
+    </header>
+
+    <div id="content"><p class="muted" style="padding:40px 4px">Chargement des statistiques…</p></div>
+
+    <footer class="foot">Données anonymisées (pays &amp; position approximative, sans adresse IP) · JAYDEN</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/jsvectormap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"></script>
+  <script src="js/analytics-config.js?v=1"></script>
+  <script>
+  (function(){
+    var cfg = window.JAYDEN_ANALYTICS || {};
+    var content = document.getElementById("content");
+    var updated = document.getElementById("updated");
+    var mapInstance = null;
+
+    function flag(cc){
+      if(!cc || cc.length!==2) return "🌐";
+      return cc.toUpperCase().replace(/./g,function(c){return String.fromCodePoint(127397 + c.charCodeAt(0));});
+    }
+    function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+    function fmt(n){ return (n==null?0:n).toLocaleString("fr-FR"); }
+
+    if(!cfg.url || !cfg.key){
+      content.innerHTML =
+        '<div class="note">'+
+        '<h2 style="font-family:var(--serif);margin-bottom:10px">Configuration requise</h2>'+
+        '<p class="muted">Les statistiques ne sont pas encore reliées à la base de données.</p>'+
+        '<p style="margin-top:12px">1. Crée un projet gratuit sur <a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a>.<br>'+
+        '2. Colle le contenu de <code>supabase/schema.sql</code> dans le SQL Editor et exécute-le.<br>'+
+        '3. Renseigne <code>url</code> et <code>key</code> (anon public) dans <code>js/analytics-config.js</code>.</p>'+
+        '</div>';
+      return;
+    }
+
+    function render(d){
+      var countries = d.countries || [];
+      var points = d.points || [];
+      var maxC = countries.reduce(function(m,c){return Math.max(m,c.count);},1);
+
+      var rows = countries.map(function(c){
+        var w = Math.max(6, Math.round(c.count/maxC*100));
+        return '<div class="row"><span class="flag">'+flag(c.country_code)+'</span>'+
+          '<span class="name">'+esc(c.country||"Inconnu")+'</span>'+
+          '<span class="bar"><i style="right:'+(100-w)+'%"></i></span>'+
+          '<span class="cnt">'+fmt(c.count)+'</span></div>';
+      }).join("") || '<p class="muted" style="padding:16px 12px">Aucune visite pour le moment.</p>';
+
+      content.innerHTML =
+        '<div class="tiles">'+
+          '<div class="tile"><div class="k">Visites totales</div><div class="v">'+fmt(d.total)+'</div></div>'+
+          '<div class="tile"><div class="k">Aujourd’hui</div><div class="v">'+fmt(d.today)+'</div></div>'+
+          '<div class="tile"><div class="k">7 derniers jours</div><div class="v">'+fmt(d.week)+'</div></div>'+
+        '</div>'+
+        '<div class="grid">'+
+          '<div class="card"><h2>Carte des connexions</h2><div class="sub">'+points.length+' zone(s) · point plus large = plus de visites</div><div id="map"></div></div>'+
+          '<div class="card"><h2>Pays</h2><div class="sub">Classement par nombre de visites</div><div class="countries" id="countries">'+rows+'</div></div>'+
+        '</div>';
+
+      updated.textContent = "Mis à jour : " + new Date().toLocaleString("fr-FR");
+      drawMap(points);
+    }
+
+    function drawMap(points){
+      var el = document.getElementById("map");
+      if(!el) return;
+      if(typeof jsVectorMap === "undefined"){
+        el.innerHTML = '<p class="muted" style="padding:24px">Carte indisponible (librairie non chargée). Les chiffres par pays restent affichés à droite.</p>';
+        return;
+      }
+      var maxP = points.reduce(function(m,p){return Math.max(m,p.count);},1);
+      var markers = points.map(function(p){
+        var r = 4 + Math.round((Math.sqrt(p.count)/Math.sqrt(maxP))*9); // 4 → 13 px
+        return { name: (p.country||"") + " · " + p.count + " visite(s)", coords:[p.lat, p.lng], style:{ initial:{ r:r } } };
+      });
+      try{
+        if(mapInstance && mapInstance.destroy) mapInstance.destroy();
+        el.innerHTML = "";
+        mapInstance = new jsVectorMap({
+          selector:"#map", map:"world",
+          zoomButtons:true, zoomOnScroll:false, backgroundColor:"transparent",
+          regionStyle:{ initial:{ fill:"#2a2015", stroke:"#0b0908", strokeWidth:.5, fillOpacity:1 }, hover:{ fill:"#3b2c17" } },
+          markers: markers,
+          markerStyle:{
+            initial:{ fill:"#f3ca5a", stroke:"#0b0908", strokeWidth:1, r:5, fillOpacity:1 },
+            hover:{ fill:"#ffffff", stroke:"#f3ca5a" }
+          }
+        });
+      }catch(e){
+        el.innerHTML = '<p class="muted" style="padding:24px">Carte indisponible.</p>';
+      }
+    }
+
+    function load(){
+      fetch(cfg.url.replace(/\/+$/,"") + "/rest/v1/rpc/get_visit_stats", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json", "apikey":cfg.key, "Authorization":"Bearer "+cfg.key },
+        body:"{}"
+      })
+      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(d){ render(d || {}); })
+      .catch(function(err){
+        content.innerHTML = '<div class="note"><h2 style="font-family:var(--serif);margin-bottom:8px">Impossible de charger les statistiques</h2>'+
+          '<p class="muted">Vérifie l’URL/clé Supabase et que le SQL a bien été exécuté.</p>'+
+          '<p class="muted" style="margin-top:8px;font-size:.8rem">Détail : '+esc(err && err.message)+'</p></div>';
+      });
+    }
+
+    document.getElementById("refresh").addEventListener("click", load);
+    load();
+    setInterval(load, 60000); // rafraîchissement auto chaque minute
+  })();
+  </script>
+</body>
+</html>
