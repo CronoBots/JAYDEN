@@ -593,9 +593,9 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   .hero__inner {
     position: relative; z-index: 2; order: 1;
     min-height: 100svh; display: flex; align-items: flex-end;
-    /* Bloc ancré en bas : le padding bas remonte l'ensemble
-       (titre + morse + phrase) légèrement vers le haut */
-    padding: 90px 22px calc(76px + 74px);
+    /* Bloc ancré en bas : padding bas réduit pour descendre l'ensemble
+       (le pseudo JAYDEN arrive au niveau de la taille du personnage) */
+    padding: 90px 22px calc(76px + 6px);
   }
   /* Contenu du héros centré horizontalement sur mobile */
   .hero__content { max-width: none; width: 100%; text-align: center; }
