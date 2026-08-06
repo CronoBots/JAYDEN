@@ -583,9 +583,9 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   .hero__inner {
     position: relative; z-index: 2; order: 1;
     min-height: 100svh; display: flex; align-items: flex-end;
-    /* Bloc ancré en bas : padding réduit pour descendre la phrase de signature
-       dans l'espace vide et limiter le vide sous le hero */
-    padding: 90px 22px calc(76px + 40px);
+    /* Bloc ancré en bas : le padding bas remonte l'ensemble
+       (titre + morse + phrase) légèrement vers le haut */
+    padding: 90px 22px calc(76px + 74px);
   }
   /* Contenu du héros centré horizontalement sur mobile */
   .hero__content { max-width: none; width: 100%; text-align: center; }
