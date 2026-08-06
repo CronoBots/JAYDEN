@@ -5,7 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JAYDEN — Statistiques</title>
   <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0b0908">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=40">
+
+  <!-- PWA : app « BACKSTAGE » installable (icône logo JAYDEN doré sur fond noir) -->
+  <link rel="manifest" href="/backstage/manifest.webmanifest?v=40">
+  <meta name="application-name" content="BACKSTAGE">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BACKSTAGE">
 
   <!-- Polices (sans bloquer le rendu) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -233,5 +243,6 @@
     setInterval(load, 60000); // rafraîchissement auto chaque minute
   })();
   </script>
+  <script src="/js/pwa.js?v=40" defer></script>
 </body>
 </html>

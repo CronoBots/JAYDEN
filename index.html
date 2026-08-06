@@ -26,7 +26,15 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/img/favicon.png">
-  <link rel="apple-touch-icon" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png?v=40">
+
+  <!-- PWA : installable sur l'écran d'accueil (nom « JAYDEN », icône logo doré sur fond noir) -->
+  <link rel="manifest" href="/site.webmanifest?v=40">
+  <meta name="application-name" content="JAYDEN">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="JAYDEN">
 
   <!-- Fonts : chargées SANS bloquer le rendu (on n'attend jamais une ressource externe lente) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -424,5 +432,6 @@
   <!-- Statistiques de visite (anonymes) — inactif tant que la config est vide -->
   <script src="js/analytics-config.js?v=1"></script>
   <script src="js/analytics.js?v=1" defer></script>
+  <script src="js/pwa.js?v=40" defer></script>
 </body>
 </html>
