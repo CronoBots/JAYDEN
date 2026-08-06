@@ -268,6 +268,8 @@
     const mpFill = document.getElementById("mpFill");
     const mpCur = document.getElementById("mpCur");
     const mpDur = document.getElementById("mpDur");
+    const mpCurM = document.getElementById("mpCurM");
+    const mpDurM = document.getElementById("mpDurM");
 
     const PLAY = "M8 5v14l11-7z";
     const PAUSE = "M6 5h4v14H6zM14 5h4v14h-4z";
@@ -277,26 +279,45 @@
         : "0:00";
 
     const audio = new Audio();
-    audio.preload = "auto";
+    // Chargement différé : RIEN n'est téléchargé au chargement de la page.
+    // Le fichier (~4,7 Mo) n'est récupéré qu'au premier clic sur lecture,
+    // ce qui allège fortement le chargement initial (surtout sur mobile).
+    audio.preload = "none";
     audio.loop = false; // la chanson ne se relance jamais toute seule
 
-    // Précharge tout l'extrait dès l'ouverture (téléchargement immédiat en mémoire)
-    // → lecture instantanée au clic, sans démarrage automatique.
-    fetch(mp.dataset.src)
-      .then((r) => (r.ok ? r.blob() : Promise.reject(r.status)))
-      .then((blob) => { audio.src = URL.createObjectURL(blob); audio.load(); })
-      .catch(() => { audio.src = mp.dataset.src; audio.load(); });
+    let loadStarted = null;
+    const ensureLoaded = () => {
+      if (loadStarted) return loadStarted;
+      // Téléchargement en mémoire (blob) → lecture fluide, puis on relit sans re-télécharger.
+      loadStarted = fetch(mp.dataset.src)
+        .then((r) => (r.ok ? r.blob() : Promise.reject(r.status)))
+        .then((blob) => { audio.src = URL.createObjectURL(blob); })
+        .catch(() => { audio.src = mp.dataset.src; });
+      return loadStarted;
+    };
 
-    audio.addEventListener("loadedmetadata", () => { mpDur.textContent = fmt(audio.duration); });
-    audio.addEventListener("timeupdate", () => {
+    // Met à jour la barre, les temps (inline + mobile) et l'accessibilité du curseur.
+    const syncUI = () => {
+      const cur = fmt(audio.currentTime);
+      mpCur.textContent = cur;
+      if (mpCurM) mpCurM.textContent = cur;
+      if (isFinite(audio.duration)) {
+        const dur = fmt(audio.duration);
+        mpDur.textContent = dur;
+        if (mpDurM) mpDurM.textContent = dur;
+      }
       const p = (audio.currentTime / audio.duration) * 100 || 0;
       mpFill.style.right = 100 - p + "%";
-      mpCur.textContent = fmt(audio.currentTime);
-    });
+      mpBar.setAttribute("aria-valuenow", Math.round(p));
+      mpBar.setAttribute("aria-valuetext", cur + " / " + (isFinite(audio.duration) ? fmt(audio.duration) : "…"));
+    };
+
+    audio.addEventListener("loadedmetadata", syncUI);
+    audio.addEventListener("timeupdate", syncUI);
     audio.addEventListener("ended", () => {
       // Fin du morceau : on s'arrête et on revient au début (aucune relecture auto)
-      mpFill.style.right = "100%";
       audio.currentTime = 0;
+      syncUI();
     });
 
     // L'icône suit toujours l'état réel de l'audio (play <-> pause synchronisés)
@@ -310,8 +331,7 @@
     });
 
     const toggle = () => {
-      if (!audio.src) return;
-      if (audio.paused) audio.play().catch(() => {});
+      if (audio.paused) ensureLoaded().then(() => audio.play().catch(() => {}));
       else audio.pause();
     };
 
@@ -319,17 +339,30 @@
     const sectionPlay = document.getElementById("sectionPlay");
     if (sectionPlay) sectionPlay.addEventListener("click", toggle);
 
-    const seek = (clientX) => {
+    // Déplacement dans le morceau : clic OU glissement (souris + tactile),
+    // avec retour visuel immédiat même en pause.
+    const seekToX = (clientX) => {
       if (!isFinite(audio.duration)) return;
       const rect = mpBar.getBoundingClientRect();
       const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
       audio.currentTime = ratio * audio.duration;
+      syncUI();
     };
-    mpBar.addEventListener("click", (e) => seek(e.clientX));
+    let dragging = false;
+    mpBar.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      try { mpBar.setPointerCapture(e.pointerId); } catch (err) {}
+      seekToX(e.clientX);
+      e.preventDefault();
+    });
+    mpBar.addEventListener("pointermove", (e) => { if (dragging) seekToX(e.clientX); });
+    const endDrag = () => { dragging = false; };
+    mpBar.addEventListener("pointerup", endDrag);
+    mpBar.addEventListener("pointercancel", endDrag);
     mpBar.addEventListener("keydown", (e) => {
       if (!isFinite(audio.duration)) return;
-      if (e.key === "ArrowRight") audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
-      else if (e.key === "ArrowLeft") audio.currentTime = Math.max(0, audio.currentTime - 5);
+      if (e.key === "ArrowRight") { audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); syncUI(); e.preventDefault(); }
+      else if (e.key === "ArrowLeft") { audio.currentTime = Math.max(0, audio.currentTime - 5); syncUI(); e.preventDefault(); }
     });
   }
 
