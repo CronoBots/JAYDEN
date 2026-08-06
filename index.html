@@ -36,8 +36,8 @@
 
   <!-- Anti-FOUC : styles critiques posés immédiatement (fond sombre, liens jamais bleus,
        menu mobile hors écran) + contenu masqué jusqu'à l'application de la feuille de style. -->
-  <style>html{background-color:#0b0908}body{visibility:hidden;background:#0b0908;margin:0}a{color:inherit;text-decoration:none}@media(max-width:760px){#navLinks{position:fixed;inset:0;width:100vw;transform:translateX(100%)}}</style>
-  <link rel="stylesheet" href="css/style.css?v=32">
+  <style>html{background-color:#0b0908}body{visibility:hidden;background:#0b0908;margin:0}a{color:inherit;text-decoration:none}@media(max-width:760px){.nav__links{position:fixed;inset:0;width:100vw;transform:translateX(100%)}}</style>
+  <link rel="stylesheet" href="css/style.css?v=34">
   <!-- Filet de sécurité : si la feuille de style échoue, on réaffiche quand même le contenu. -->
   <script>document.addEventListener("DOMContentLoaded",function(){document.body.style.visibility="visible";});</script>
 </head>
@@ -419,6 +419,6 @@
     <button class="btn btn--solid" id="cookieAccept" data-i18n="cookie.ok">Got it</button>
   </div>
 
-  <script src="js/main.js?v=32"></script>
+  <script src="js/main.js?v=34"></script>
 </body>
 </html>
