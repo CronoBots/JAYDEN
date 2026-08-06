@@ -446,23 +446,23 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
    (··· → S, ——— → O, ··· → S). La lueur flambe puis reste bien visible,
    avec une légère respiration lumineuse. */
 .hero__quote .sos.lit {
-  color: #fff4d8;
+  color: var(--gold-lite); /* doré, comme le logo (plus de blanc) */
   animation: sosHalo 1.15s var(--ease) forwards,
-             sosGlow 3.6s ease-in-out 1.15s infinite;
+             sosGlow 3.4s ease-in-out 1.15s infinite;
 }
 /* Persistance (y compris après un changement de langue qui recrée les lettres) */
 .hero__quote.is-sos-lit .sos {
-  color: #fff4d8;
-  text-shadow: 0 0 15px rgba(244,223,164,0.9), 0 0 34px rgba(217,172,82,0.6), 0 0 60px rgba(217,172,82,0.32);
+  color: var(--gold-lite);
+  text-shadow: 0 0 20px rgba(244,223,164,1), 0 0 46px rgba(217,172,82,0.9), 0 0 84px rgba(217,172,82,0.55);
 }
 @keyframes sosHalo {
   0%   { text-shadow: 0 0 0 rgba(244,223,164,0); }
-  30%  { text-shadow: 0 0 26px rgba(255,244,216,1), 0 0 56px rgba(217,172,82,0.9), 0 0 90px rgba(217,172,82,0.5); }
-  100% { text-shadow: 0 0 15px rgba(244,223,164,0.9), 0 0 34px rgba(217,172,82,0.6), 0 0 60px rgba(217,172,82,0.32); }
+  30%  { text-shadow: 0 0 34px rgba(244,223,164,1), 0 0 72px rgba(217,172,82,1), 0 0 120px rgba(217,172,82,0.8); }
+  100% { text-shadow: 0 0 20px rgba(244,223,164,1), 0 0 46px rgba(217,172,82,0.9), 0 0 84px rgba(217,172,82,0.55); }
 }
 @keyframes sosGlow {
-  0%, 100% { text-shadow: 0 0 15px rgba(244,223,164,0.85), 0 0 34px rgba(217,172,82,0.55), 0 0 60px rgba(217,172,82,0.3); }
-  50%      { text-shadow: 0 0 24px rgba(255,244,216,1), 0 0 50px rgba(217,172,82,0.8), 0 0 84px rgba(217,172,82,0.45); }
+  0%, 100% { text-shadow: 0 0 20px rgba(244,223,164,0.95), 0 0 46px rgba(217,172,82,0.85), 0 0 84px rgba(217,172,82,0.5); }
+  50%      { text-shadow: 0 0 30px rgba(244,223,164,1), 0 0 62px rgba(217,172,82,1), 0 0 108px rgba(217,172,82,0.68); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__quote .sos.lit { animation: none; }
