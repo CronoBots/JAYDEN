@@ -378,17 +378,19 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 /* =========================================================
    HERO — citation sur la photo
    ========================================================= */
+/* Citation + signature : dans le flux, centrées sous le logo & le morse (colonne de gauche) */
 .hero__quote {
-  position: absolute; z-index: 2; right: clamp(24px, 5vw, 72px); bottom: 96px;
-  text-align: right; white-space: nowrap;
-  font-family: var(--serif); font-style: italic; font-size: 2rem; line-height: 1.4;
+  position: relative; z-index: 2;
+  width: min(560px, 42vw); margin-top: 30px;
+  text-align: center;
+  font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 2.3vw, 1.9rem); line-height: 1.45;
   color: var(--text); text-shadow: 0 2px 18px rgba(0,0,0,0.7);
 }
 .hero__quote > span { display: block; }
-/* Signature de l'artiste, en petit sous la phrase (alignée à droite sur PC) */
+/* Signature de l'artiste, centrée sous la phrase */
 .hero__sign {
   display: block; height: auto; width: clamp(120px, 9vw, 158px);
-  margin: 6px 0 0 auto; opacity: 0.9;
+  margin: 10px auto 0; opacity: 0.9;
   filter: drop-shadow(0 0 6px rgba(255,255,255,0.25));
 }
 /* Les lettres S · O · S de « Save Our Soul » : blanches au départ (comme la phrase),
@@ -479,26 +481,28 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .mp__close:hover { color: var(--gold); background: rgba(217,172,82,0.10); border-color: var(--line); }
 .mp__close svg { width: 15px; height: 15px; }
 
-/* Pastille dorée du lecteur réduit */
+/* Pastille dorée du lecteur réduit — même taille/emplacement que le bouton « retour en haut » */
 .mp-fab {
-  position: fixed; right: 22px; bottom: 22px; z-index: 95;
-  width: 56px; height: 56px; border-radius: 50%;
+  position: fixed; right: 22px; bottom: 22px; z-index: 96;
+  width: 44px; height: 44px; border-radius: 50%;
   display: none; place-items: center;
   background: var(--gold); color: #17110a;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.55);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.5);
   transition: transform 0.3s var(--ease), background 0.3s;
 }
-.mp-fab svg { width: 22px; height: 22px; fill: currentColor; margin-left: 2px; }
-.mp-fab:hover { transform: scale(1.07); background: var(--gold-lite); }
+.mp-fab svg { width: 16px; height: 16px; fill: currentColor; margin-left: 2px; }
+.mp-fab:hover { transform: scale(1.08); background: var(--gold-lite); }
 .mp-fab.playing { animation: mpPulse 1.9s ease-out infinite; }
 @keyframes mpPulse {
-  0%   { box-shadow: 0 12px 32px rgba(0,0,0,0.55), 0 0 0 0 rgba(217,172,82,0.55); }
-  70%  { box-shadow: 0 12px 32px rgba(0,0,0,0.55), 0 0 0 15px rgba(217,172,82,0); }
-  100% { box-shadow: 0 12px 32px rgba(0,0,0,0.55), 0 0 0 0 rgba(217,172,82,0); }
+  0%   { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 0 0 0 rgba(217,172,82,0.5); }
+  70%  { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 0 0 11px rgba(217,172,82,0); }
+  100% { box-shadow: 0 10px 26px rgba(0,0,0,0.5), 0 0 0 0 rgba(217,172,82,0); }
 }
 
-/* État réduit : la barre disparaît, la pastille apparaît */
+/* État réduit : la barre disparaît, la pastille apparaît.
+   Le bouton « retour en haut » se cale juste au-dessus de la pastille. */
 body.player-collapsed .miniplayer { display: none; }
+body.player-collapsed .to-top { bottom: 78px; }
 body.player-collapsed .mp-fab { display: grid; }
 
 /* =========================================================
@@ -571,7 +575,7 @@ body.player-collapsed .mp-fab { display: grid; }
   .hero__subtitle { width: 100%; font-size: clamp(1.6rem, 8vw, 2.4rem); letter-spacing: 0.22em; }
   /* Citation de l'artiste : centrée, sur une seule ligne, agrandie */
   .hero__quote {
-    position: static; max-width: none; text-align: center; white-space: nowrap;
+    position: static; width: 100%; max-width: none; text-align: center; white-space: nowrap;
     padding: 0; margin-top: clamp(56px, 15vw, 96px); font-size: clamp(1rem, 5.1vw, 1.9rem);
   }
   /* Signature centrée sous la phrase sur mobile */
@@ -614,10 +618,11 @@ body.player-collapsed .mp-fab { display: grid; }
   .mp__fill::after { top: 5px; opacity: 1; }
   .to-top { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
   .mp__close { width: 30px; height: 30px; }
-  /* Réduit : la pastille remplace la barre, le contenu récupère l'espace */
-  .mp-fab { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  /* Réduit : la pastille remplace la barre (même position que « retour en haut »),
+     le contenu récupère l'espace, et le bouton « retour en haut » se cale au-dessus. */
+  .mp-fab { right: 22px; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); }
   body.player-collapsed { padding-bottom: env(safe-area-inset-bottom, 0px); }
-  body.player-collapsed .to-top { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  body.player-collapsed .to-top { bottom: calc(78px + env(safe-area-inset-bottom, 0px)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
