@@ -183,7 +183,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 /* Séparateur « ··· ——— ··· » (SOS en morse), en blanc, centré sous le pseudo.
    Chaque caractère est révélé À SA PLACE (mise en page figée) — voir main.js. */
 .hero__subtitle {
-  width: min(560px, 42vw); text-align: center; min-height: 1.1em;
+  width: min(560px, 42vw); text-align: left; min-height: 1.1em;
   font-family: var(--serif); font-weight: 700; font-style: normal;
   font-size: clamp(1.9rem, 4.2vw, 3.1rem); letter-spacing: 0.26em;
   color: var(--text); margin-top: 8px;
@@ -382,15 +382,15 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .hero__quote {
   position: relative; z-index: 2;
   width: min(560px, 42vw); margin-top: 30px;
-  text-align: center;
+  text-align: left;
   font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 2.3vw, 1.9rem); line-height: 1.45;
   color: var(--text); text-shadow: 0 2px 18px rgba(0,0,0,0.7);
 }
 .hero__quote > span { display: block; }
-/* Signature de l'artiste, centrée sous la phrase */
+/* Signature de l'artiste, alignée à gauche sous la phrase */
 .hero__sign {
   display: block; height: auto; width: clamp(120px, 9vw, 158px);
-  margin: 10px auto 0; opacity: 0.9;
+  margin: 10px 0 0; opacity: 0.9;
   filter: drop-shadow(0 0 6px rgba(255,255,255,0.25));
 }
 /* Les lettres S · O · S de « Save Our Soul » : blanches au départ (comme la phrase),
