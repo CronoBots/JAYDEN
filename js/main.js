@@ -12,7 +12,7 @@
       "doc.title": "JAYDEN — Official site · Voice. Guitar. Truth.",
       "nav.home": "Home", "nav.music": "Music", "nav.videos": "Videos",
       "nav.about": "About", "nav.news": "News", "nav.contact": "Contact",
-      "hero.quote": "“What if a sound could save your soul?”",
+      "hero.quote": "“What if a sound could <span class=\"sos\">S</span>ave <span class=\"sos\">O</span>ur <span class=\"sos\">S</span>oul?”",
       "hero.quoteCite": "Jayden",
       "hero.next": "Next live",
       "music.label": "The music", "music.title": "The new single",
@@ -50,7 +50,7 @@
       "contact.intro": "Booking, press, collaborations — or just a word. Feel free to reach out.",
       "contact.name": "Name", "contact.email": "Email", "contact.message": "Message",
       "contact.send": "Send",
-      "footer.tag": "Voice. Guitar. Truth.",
+      "footer.tag": "··· ——— ···",
       "footer.copy": "© 2026 JAYDEN — All rights reserved",
       "footer.credit": "Website by",
       "footer.legal": "Legal notice",
@@ -65,7 +65,7 @@
       "doc.title": "JAYDEN — Site officiel · Voix. Guitare. Vérité.",
       "nav.home": "Accueil", "nav.music": "Musique", "nav.videos": "Vidéos",
       "nav.about": "À propos", "nav.news": "Actus", "nav.contact": "Contact",
-      "hero.quote": "« Et si un son pouvait sauver ton âme ? »",
+      "hero.quote": "“What if a sound could <span class=\"sos\">S</span>ave <span class=\"sos\">O</span>ur <span class=\"sos\">S</span>oul?”",
       "hero.quoteCite": "Jayden",
       "hero.next": "Prochain live",
       "music.label": "La musique", "music.title": "Le nouveau single",
@@ -83,6 +83,14 @@
       "about.lead": "Certains artistes courent après les tendances. D'autres passent des années à chercher une voix qui leur appartienne vraiment. JAYDEN a choisi la seconde voie.",
       "about.p1": "Chanteur, auteur-compositeur et interprète, il a passé des années à façonner une identité artistique guidée par une conviction simple : la musique doit faire ressentir quelque chose bien après la dernière note.",
       "about.p2": "Bien avant de lancer son projet solo, JAYDEN s'est forgé une réputation sur scène. En 2004, il est sélectionné pour <strong>ROCKSTAR INXS</strong>, avant de rejoindre de grandes productions internationales, dont <em>Thriller Live</em> à Londres, le spectacle acclamé célébrant l'héritage de Michael Jackson.",
+      "about.p3": "Il devient ensuite le chanteur principal d'<strong>OCTOBER Plays U2</strong> et d'<strong>INXS Xperience</strong>, se produisant en Belgique et à travers l'Europe, tout en se forgeant une réputation de performeur scénique passionné et authentique.",
+      "about.p4": "Pourtant, derrière chaque concert, chaque répétition et chaque kilomètre parcouru, une autre histoire prenait forme en silence.",
+      "about.p5": "Pendant des années, JAYDEN a écrit, réécrit et peaufiné ses chansons sans courir après les tendances ni les algorithmes. Son ambition n'a jamais été de simplement sortir de la musique, mais de créer des chansons capables de toucher les gens comme la musique de son enfance l'avait toujours touché.",
+      "about.p6": "Cette vision est devenue <strong><em>SOS – Save Our Soul</em></strong>.",
+      "about.p7": "Plus qu'un album, <em>SOS</em> est conçu comme un véritable voyage artistique. Chaque chanson représente un chapitre de son histoire. Elles explorent la vulnérabilité, l'espoir, la résilience, l'amour, le doute et la force d'avancer, même dans les moments les plus sombres.",
+      "about.p8": "Influencé par des artistes comme Michael Jackson, Prince, INXS, Lenny Kravitz, Steven Tyler et Mick Jagger, il puise dans leur liberté artistique tout en créant un son et une identité qui n'appartiennent qu'à lui.",
+      "about.p9": "JAYDEN ne crée pas de musique pour suivre les tendances.<br>Il crée de la musique pour faire ressentir.",
+      "about.p10": "Parce que chaque chanson raconte une histoire.<br>Et chaque histoire laisse une trace.",
       "about.sign": "Jayden",
       "news.label": "L'actualité", "news.title": "Concerts &amp; actus",
       "news.sanremo.month": "Sep",
@@ -103,7 +111,7 @@
       "contact.intro": "Booking, presse, collaborations ou simplement un mot : n'hésite pas.",
       "contact.name": "Nom", "contact.email": "E-mail", "contact.message": "Message",
       "contact.send": "Envoyer",
-      "footer.tag": "Voix. Guitare. Vérité.",
+      "footer.tag": "··· ——— ···",
       "footer.copy": "© 2026 JAYDEN — Tous droits réservés",
       "footer.credit": "Site réalisé par",
       "footer.legal": "Mentions légales",
@@ -270,6 +278,7 @@
 
     const audio = new Audio();
     audio.preload = "auto";
+    audio.loop = false; // la chanson ne se relance jamais toute seule
 
     // Précharge tout l'extrait dès l'ouverture (téléchargement immédiat en mémoire)
     // → lecture instantanée au clic, sans démarrage automatique.
@@ -284,7 +293,11 @@
       mpFill.style.right = 100 - p + "%";
       mpCur.textContent = fmt(audio.currentTime);
     });
-    audio.addEventListener("ended", () => { mpFill.style.right = "100%"; });
+    audio.addEventListener("ended", () => {
+      // Fin du morceau : on s'arrête et on revient au début (aucune relecture auto)
+      mpFill.style.right = "100%";
+      audio.currentTime = 0;
+    });
 
     // L'icône suit toujours l'état réel de l'audio (play <-> pause synchronisés)
     audio.addEventListener("play", () => {
@@ -379,6 +392,33 @@
         aboutSound.setAttribute("aria-pressed", String(on));
         if (on) aboutVideo.play().catch(() => {});
       });
+    }
+  }
+
+  /* ---------- Séparateur « SOS » en morse : s'écrit à l'écran (transmission) ---------- */
+  const morseEl = document.querySelector(".hero__subtitle");
+  if (morseEl) {
+    const full = (morseEl.textContent || "··· ——— ···").trim();
+    const chars = Array.from(full);
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce && chars.length) {
+      const delayFor = (ch) => (ch === "·" ? 170 : ch === "—" ? 430 : 520); // point court, trait long, silence
+      let i = 0;
+      const type = () => {
+        if (i < chars.length) {
+          morseEl.textContent += chars[i];
+          const ch = chars[i];
+          i++;
+          setTimeout(type, delayFor(ch));
+        } else {
+          morseEl.classList.remove("keying");
+          // pause puis on retransmet le signal
+          setTimeout(() => { i = 0; morseEl.textContent = ""; morseEl.classList.add("keying"); type(); }, 3600);
+        }
+      };
+      morseEl.textContent = "";
+      morseEl.classList.add("keying");
+      setTimeout(type, 1100); // démarre après l'apparition du logo
     }
   }
 
