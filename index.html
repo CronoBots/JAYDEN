@@ -45,7 +45,7 @@
   <!-- Anti-FOUC : styles critiques posés immédiatement (fond sombre, liens jamais bleus,
        menu mobile hors écran) + contenu masqué jusqu'à l'application de la feuille de style. -->
   <style>html{background-color:#0b0908}body{visibility:hidden;background:#0b0908;margin:0}a{color:inherit;text-decoration:none}@media(max-width:760px){.nav__links{position:fixed;inset:0;width:100vw;transform:translateX(100%)}}</style>
-  <link rel="stylesheet" href="css/style.css?v=40">
+  <link rel="stylesheet" href="css/style.css?v=41">
   <!-- Filet de sécurité : si la feuille de style échoue, on réaffiche quand même le contenu. -->
   <script>document.addEventListener("DOMContentLoaded",function(){document.body.style.visibility="visible";});</script>
 </head>
@@ -420,7 +420,15 @@
            aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0:00 / 2:02"><div class="mp__fill" id="mpFill"></div></div>
       <span class="mp__time" id="mpDur">2:02</span>
     </div>
+    <button class="mp__close" id="mpClose" aria-label="Réduire le lecteur" title="Réduire">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
   </div>
+
+  <!-- Pastille du lecteur réduit (rouvre la barre au clic) -->
+  <button class="mp-fab" id="mpFab" aria-label="Rouvrir le lecteur" title="Écouter le single">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+  </button>
 
   <!-- ============ BANDEAU COOKIES ============ -->
   <div class="cookie-bar" id="cookieBar" role="dialog" aria-live="polite" aria-label="Cookies">
@@ -428,7 +436,7 @@
     <button class="btn btn--solid" id="cookieAccept" data-i18n="cookie.ok">Got it</button>
   </div>
 
-  <script src="js/main.js?v=40"></script>
+  <script src="js/main.js?v=41"></script>
   <!-- Statistiques de visite (anonymes) — inactif tant que la config est vide -->
   <script src="js/analytics-config.js?v=1"></script>
   <script src="js/analytics.js?v=1" defer></script>

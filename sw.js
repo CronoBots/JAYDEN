@@ -6,13 +6,13 @@
      (polices Google, Supabase/analytics, géo-IP) : elles passent
      directement au réseau, sans altération.
    ===================================================================== */
-const CACHE = "jayden-v40";
+const CACHE = "jayden-v41";
 
 const CORE = [
   "/",
   "/index.html",
-  "/css/style.css?v=40",
-  "/js/main.js?v=40",
+  "/css/style.css?v=41",
+  "/js/main.js?v=41",
   "/assets/img/jayden-logo.png?v=2",
   "/assets/img/hero-dark.jpg?v=2",
   "/assets/img/signature.png?v=2",

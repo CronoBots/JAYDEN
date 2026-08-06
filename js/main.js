@@ -320,14 +320,17 @@
       syncUI();
     });
 
+    const mpFab = document.getElementById("mpFab");
     // L'icône suit toujours l'état réel de l'audio (play <-> pause synchronisés)
     audio.addEventListener("play", () => {
       mpIcon.setAttribute("d", PAUSE);
       mp.classList.add("playing");
+      if (mpFab) mpFab.classList.add("playing");
     });
     audio.addEventListener("pause", () => {
       mpIcon.setAttribute("d", PLAY);
       mp.classList.remove("playing");
+      if (mpFab) mpFab.classList.remove("playing");
     });
 
     const toggle = () => {
@@ -338,6 +341,20 @@
     document.getElementById("mpPlay").addEventListener("click", toggle);
     const sectionPlay = document.getElementById("sectionPlay");
     if (sectionPlay) sectionPlay.addEventListener("click", toggle);
+
+    // Réduire / rouvrir le lecteur (la lecture continue en arrière-plan).
+    // Le choix est mémorisé le temps de la session (navigation entre pages).
+    const mpClose = document.getElementById("mpClose");
+    const COLLAPSE_KEY = "jaydenPlayerCollapsed";
+    const setCollapsed = (on, persist) => {
+      document.body.classList.toggle("player-collapsed", on);
+      if (persist) {
+        try { on ? sessionStorage.setItem(COLLAPSE_KEY, "1") : sessionStorage.removeItem(COLLAPSE_KEY); } catch (e) {}
+      }
+    };
+    if (mpClose) mpClose.addEventListener("click", () => setCollapsed(true, true));
+    if (mpFab) mpFab.addEventListener("click", () => setCollapsed(false, true));
+    try { if (sessionStorage.getItem(COLLAPSE_KEY)) setCollapsed(true, false); } catch (e) {}
 
     // Déplacement dans le morceau : clic OU glissement (souris + tactile),
     // avec retour visuel immédiat même en pause.
