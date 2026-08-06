@@ -91,13 +91,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav.scrolled::before { opacity: 0; }
 .nav__logo img { height: 34px; width: auto; transition: height 0.5s var(--ease); }
 .nav.scrolled .nav__logo img { height: 28px; }
-/* Le logo de la barre reste masqué tant que le grand logo du hero est visible ;
-   il apparaît en fondu une fois celui-ci sorti de l'écran (géré en JS). */
+/* Le logo de la barre est masqué en haut de page et apparaît en fondu
+   en même temps que la barre, dès le premier défilement (classe .scrolled). */
 .nav .nav__logo {
   opacity: 0; visibility: hidden; transform: translateY(-4px);
   transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), visibility 0.5s;
 }
-.nav.logo-visible .nav__logo { opacity: 1; visibility: visible; transform: none; }
+.nav.scrolled .nav__logo { opacity: 1; visibility: visible; transform: none; }
 
 .nav__links { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 40px); }
 .nav__links a {
@@ -183,7 +183,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
    Chaque caractère est révélé À SA PLACE (mise en page figée) — voir main.js. */
 .hero__subtitle {
   width: min(560px, 42vw); text-align: center; min-height: 1.1em;
-  font-family: var(--serif); font-weight: 500; font-style: normal;
+  font-family: var(--serif); font-weight: 700; font-style: normal;
   font-size: clamp(1.5rem, 3.2vw, 2.4rem); letter-spacing: 0.28em;
   color: var(--text); margin-top: 8px;
 }
@@ -568,7 +568,7 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   /* Citation de l'artiste : centrée, sur une seule ligne, agrandie */
   .hero__quote {
     position: static; max-width: none; text-align: center; white-space: nowrap;
-    padding: 0; margin-top: 34px; font-size: clamp(1rem, 5.1vw, 1.9rem);
+    padding: 0; margin-top: clamp(56px, 15vw, 96px); font-size: clamp(1rem, 5.1vw, 1.9rem);
   }
   /* Pastille « prochain concert » : peut passer sur 2 lignes sur très petits écrans */
   .hero__event {
