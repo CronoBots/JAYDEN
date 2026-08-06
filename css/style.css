@@ -560,7 +560,12 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   /* Citation de l'artiste : centrée, sur une seule ligne, agrandie */
   .hero__quote {
     position: static; max-width: none; text-align: center; white-space: nowrap;
-    padding: 0; margin-top: 22px; font-size: clamp(0.95rem, 4.4vw, 1.35rem);
+    padding: 0; margin-top: 26px; font-size: clamp(1rem, 5.1vw, 1.9rem);
+  }
+  /* Pastille « prochain concert » : peut passer sur 2 lignes sur très petits écrans */
+  .hero__event {
+    flex-wrap: wrap; justify-content: center; white-space: normal;
+    max-width: 100%; letter-spacing: 0.12em; row-gap: 4px;
   }
 
   /* Sections plus compactes (moins de zones vides au scroll) */
