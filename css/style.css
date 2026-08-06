@@ -53,17 +53,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
 }
-.eyebrow {
-  font-family: var(--sans);
-  font-weight: 400;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  color: var(--gold);
-  display: inline-flex; align-items: center; gap: 18px;
-}
-.eyebrow::after { content: ""; width: 46px; height: 1px; background: var(--gold-soft); }
-
 .section-label {
   font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase;
   font-size: 0.72rem; color: var(--gold);
@@ -178,18 +167,18 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   0%, 100% { filter: drop-shadow(0 8px 32px rgba(217, 172, 82, 0.16)); }
   50% { filter: drop-shadow(0 10px 52px rgba(217, 172, 82, 0.36)); }
 }
+/* Séparateur décoratif « ··· ——— ··· » : agrandi et centré sous le pseudo (logo) */
 .hero__subtitle {
+  width: min(560px, 42vw); text-align: center;
   font-family: var(--serif); font-weight: 500; font-style: normal;
-  font-size: clamp(1.3rem, 3.4vw, 2.2rem); letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--text);
+  font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: 0.28em;
+  color: var(--gold-lite); margin-top: 6px;
 }
-.hero__lead { margin: 26px 0 30px; font-size: 1rem; color: var(--muted); letter-spacing: 0.02em; white-space: nowrap; }
 
-/* Prochain concert, affiché juste sous l'accroche (dans le flux du contenu du hero)
-   -> reste toujours bien placé quelle que soit la résolution. */
+/* Prochain concert : pastille centrée dans un bandeau, sous le hero */
+.live-band { display: flex; justify-content: center; padding: 30px 20px 4px; background: var(--bg); }
 .hero__event {
-  margin-top: 8px;
-  display: inline-flex; align-items: center; gap: 10px;
+  display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
   padding: 10px 18px; border-radius: 999px;
   border: 1px solid rgba(217, 172, 82, 0.42);
   background: rgba(217, 172, 82, 0.07);
@@ -550,23 +539,16 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   }
   /* Contenu du héros centré horizontalement sur mobile */
   .hero__content { max-width: none; width: 100%; text-align: center; }
-  .eyebrow { justify-content: center; }
-  .eyebrow::after { display: none; }
   .hero__title { margin: 6px 0 10px; }
   .hero__title img { width: min(420px, 74vw); margin-left: auto; margin-right: auto; }
-  .hero__subtitle { font-size: clamp(1.15rem, 5.4vw, 1.7rem); }
-  .hero__lead { margin: 18px 0 0; white-space: normal; }
+  /* Séparateur agrandi, centré sous le logo */
+  .hero__subtitle { width: 100%; font-size: clamp(1.9rem, 8vw, 2.8rem); }
   /* Signature du héros : intégrée en bas de la photo (dans l'overlay), centrée */
   .hero__quote {
     position: static; max-width: none; text-align: center;
     padding: 0; margin-top: 20px; font-size: 1.06rem;
   }
   .hero__quote cite { font-size: 2.4rem; }
-  /* Badge San Remo : dans le hero, sous l'accroche, pastille compacte centrée */
-  .hero__event {
-    display: inline-flex; white-space: nowrap; max-width: 100%;
-    margin: 26px 0 2px;
-  }
 
   /* Sections plus compactes (moins de zones vides au scroll) */
   .section { padding: 64px 0 72px; }
