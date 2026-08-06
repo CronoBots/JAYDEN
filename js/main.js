@@ -395,30 +395,34 @@
     }
   }
 
-  /* ---------- Séparateur « SOS » en morse : s'écrit à l'écran (transmission) ---------- */
+  /* ---------- Séparateur « SOS » en morse : chaque caractère apparaît à SA place ----------
+     Les caractères sont tous posés (mise en page figée) puis révélés un à un, une seule fois. */
   const morseEl = document.querySelector(".hero__subtitle");
   if (morseEl) {
     const full = (morseEl.textContent || "··· ——— ···").trim();
     const chars = Array.from(full);
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reduce && chars.length) {
-      const delayFor = (ch) => (ch === "·" ? 170 : ch === "—" ? 430 : 520); // point court, trait long, silence
+    morseEl.textContent = "";
+    const spans = chars.map((ch) => {
+      const s = document.createElement("span");
+      s.className = "morse-ch";
+      s.textContent = ch === " " ? " " : ch; // espace insécable pour garder la place
+      morseEl.appendChild(s);
+      return s;
+    });
+    if (reduce || !chars.length) {
+      spans.forEach((s) => s.classList.add("on"));
+    } else {
+      const delayFor = (ch) => (ch === "·" ? 180 : ch === "—" ? 440 : 520);
       let i = 0;
-      const type = () => {
-        if (i < chars.length) {
-          morseEl.textContent += chars[i];
-          const ch = chars[i];
-          i++;
-          setTimeout(type, delayFor(ch));
-        } else {
-          morseEl.classList.remove("keying");
-          // pause puis on retransmet le signal
-          setTimeout(() => { i = 0; morseEl.textContent = ""; morseEl.classList.add("keying"); type(); }, 3600);
-        }
+      const reveal = () => {
+        if (i >= spans.length) return; // écrit une seule fois, ne recommence pas
+        spans[i].classList.add("on");
+        const ch = chars[i];
+        i++;
+        setTimeout(reveal, delayFor(ch));
       };
-      morseEl.textContent = "";
-      morseEl.classList.add("keying");
-      setTimeout(type, 1100); // démarre après l'apparition du logo
+      setTimeout(reveal, 1200); // démarre après l'apparition du logo
     }
   }
 
