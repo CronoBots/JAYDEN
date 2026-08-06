@@ -1,0 +1,6 @@
+# JAYDEN — https://jaydenmusic.com
+User-agent: *
+Allow: /
+Disallow: /backstage/
+
+Sitemap: https://jaydenmusic.com/sitemap.xml

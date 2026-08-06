@@ -9,7 +9,7 @@
      ========================================================= */
   const I18N = {
     en: {
-      "doc.title": "JAYDEN — Official site · Voice. Guitar. Truth.",
+      "doc.title": "JAYDEN — Official Site | Rock Singer & Songwriter",
       "nav.home": "Home", "nav.music": "Music", "nav.videos": "Videos",
       "nav.about": "About", "nav.news": "News", "nav.contact": "Contact",
       "hero.quote": "“What if a sound could <span class=\"sos\">S</span>ave <span class=\"sos\">O</span>ur <span class=\"sos\">S</span>oul?”",
@@ -62,7 +62,7 @@
       "mp.artist": "JAYDEN · Preview"
     },
     fr: {
-      "doc.title": "JAYDEN — Site officiel · Voix. Guitare. Vérité.",
+      "doc.title": "JAYDEN — Site officiel | Chanteur & auteur-compositeur rock",
       "nav.home": "Accueil", "nav.music": "Musique", "nav.videos": "Vidéos",
       "nav.about": "À propos", "nav.news": "Actus", "nav.contact": "Contact",
       "hero.quote": "« Et si un son pouvait <span class=\"sos\">S</span>ave <span class=\"sos\">O</span>ur <span class=\"sos\">S</span>oul ? »",

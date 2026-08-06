@@ -3,26 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JAYDEN — Official site</title>
-  <meta name="description" content="Official site of JAYDEN.">
+  <title>JAYDEN — Official Site | Rock Singer &amp; Songwriter</title>
+  <meta name="description" content="Official website of JAYDEN — rock singer, songwriter and performer. Discover the new single “Somethin' Inside My Mind”, the album SOS – Save Our Soul, the live show at Festival Sanremo Rock 2026, music, videos and news.">
+  <meta name="keywords" content="JAYDEN, JAYDEN music, JAYDEN singer, JAYDEN artist, JAYDEN official, JAYDEN rock, Somethin' Inside My Mind, SOS Save Our Soul, Festival Sanremo Rock, singer-songwriter, rock, jaydenmusic">
   <meta name="theme-color" content="#0b0908">
   <meta name="author" content="JAYDEN">
+  <meta name="publisher" content="JAYDEN">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="rating" content="general">
 
   <!-- Open Graph / partage réseaux -->
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="music.musician">
   <meta property="og:site_name" content="JAYDEN">
-  <meta property="og:title" content="JAYDEN">
-  <meta property="og:description" content="&quot;What if a sound could Save Our Soul?&quot; — Jayden">
+  <meta property="og:title" content="JAYDEN — Official Site | Rock Singer &amp; Songwriter">
+  <meta property="og:description" content="Rock singer &amp; songwriter. New single “Somethin' Inside My Mind”, live at Festival Sanremo Rock 2026 — music, videos and news.">
   <meta property="og:url" content="https://jaydenmusic.com/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="fr_FR">
   <meta property="og:image" content="https://jaydenmusic.com/assets/img/og-preview.jpg?v=2">
+  <meta property="og:image:alt" content="JAYDEN — official artwork">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/jpeg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="JAYDEN">
-  <meta name="twitter:description" content="&quot;What if a sound could Save Our Soul?&quot; — Jayden">
+  <meta name="twitter:title" content="JAYDEN — Official Site | Rock Singer &amp; Songwriter">
+  <meta name="twitter:description" content="Rock singer &amp; songwriter. New single “Somethin' Inside My Mind”, live at Festival Sanremo Rock 2026.">
   <meta name="twitter:image" content="https://jaydenmusic.com/assets/img/og-preview.jpg?v=2">
+  <meta name="twitter:image:alt" content="JAYDEN — official artwork">
   <link rel="canonical" href="https://jaydenmusic.com/">
+  <!-- Identité vérifiable (rel=me) -->
+  <link rel="me" href="https://www.instagram.com/jayden_ddm">
+  <link rel="me" href="https://www.facebook.com/share/1BSdH52AcG/?mibextid=wwXIfr">
+
+  <!-- Données structurées Schema.org — référencement enrichi (artiste, single, album, concert) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["MusicGroup", "Person"],
+        "@id": "https://jaydenmusic.com/#artist",
+        "name": "JAYDEN",
+        "alternateName": "Jayden",
+        "url": "https://jaydenmusic.com/",
+        "image": "https://jaydenmusic.com/assets/img/og-preview.jpg",
+        "description": "JAYDEN is a rock singer, songwriter and performer. Shaped by years on stage — from ROCKSTAR INXS (2004) and Thriller Live in London to OCTOBER Plays U2 and INXS Xperience across Belgium and Europe — he now unveils his solo project and the album concept SOS – Save Our Soul, led by the single “Somethin' Inside My Mind”.",
+        "genre": ["Rock", "Pop rock"],
+        "email": "contact@jaydenmusic.com",
+        "sameAs": [
+          "https://www.instagram.com/jayden_ddm",
+          "https://www.facebook.com/share/1BSdH52AcG/?mibextid=wwXIfr"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://jaydenmusic.com/#website",
+        "url": "https://jaydenmusic.com/",
+        "name": "JAYDEN — Official site",
+        "inLanguage": ["en", "fr"],
+        "publisher": { "@id": "https://jaydenmusic.com/#artist" }
+      },
+      {
+        "@type": "MusicRecording",
+        "@id": "https://jaydenmusic.com/#single-somethin-inside-my-mind",
+        "name": "Somethin' Inside My Mind",
+        "byArtist": { "@id": "https://jaydenmusic.com/#artist" },
+        "inLanguage": "en",
+        "url": "https://jaydenmusic.com/#musique"
+      },
+      {
+        "@type": "MusicAlbum",
+        "@id": "https://jaydenmusic.com/#album-sos",
+        "name": "SOS – Save Our Soul",
+        "byArtist": { "@id": "https://jaydenmusic.com/#artist" },
+        "albumProductionType": "https://schema.org/StudioAlbum"
+      },
+      {
+        "@type": "MusicEvent",
+        "@id": "https://jaydenmusic.com/#event-sanremo-rock-2026",
+        "name": "JAYDEN — Live at Festival Sanremo Rock",
+        "startDate": "2026-09-12",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "performer": { "@id": "https://jaydenmusic.com/#artist" },
+        "image": "https://jaydenmusic.com/assets/img/og-preview.jpg",
+        "url": "https://www.sanremorock.it/",
+        "location": {
+          "@type": "Place",
+          "name": "Festival Sanremo Rock",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sanremo",
+            "addressRegion": "Liguria",
+            "addressCountry": "IT"
+          }
+        },
+        "organizer": {
+          "@type": "Organization",
+          "name": "Festival Sanremo Rock",
+          "url": "https://www.sanremorock.it/"
+        }
+      }
+    ]
+  }
+  </script>
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/img/favicon.png">
@@ -45,7 +129,7 @@
   <!-- Anti-FOUC : styles critiques posés immédiatement (fond sombre, liens jamais bleus,
        menu mobile hors écran) + contenu masqué jusqu'à l'application de la feuille de style. -->
   <style>html{background-color:#0b0908}body{visibility:hidden;background:#0b0908;margin:0}a{color:inherit;text-decoration:none}@media(max-width:760px){.nav__links{position:fixed;inset:0;width:100vw;transform:translateX(100%)}}</style>
-  <link rel="stylesheet" href="css/style.css?v=48">
+  <link rel="stylesheet" href="css/style.css?v=49">
   <!-- Filet de sécurité : si la feuille de style échoue, on réaffiche quand même le contenu. -->
   <script>document.addEventListener("DOMContentLoaded",function(){document.body.style.visibility="visible";});</script>
 </head>
@@ -441,7 +525,7 @@
     <button class="btn btn--solid" id="cookieAccept" data-i18n="cookie.ok">Got it</button>
   </div>
 
-  <script src="js/main.js?v=48"></script>
+  <script src="js/main.js?v=49"></script>
   <!-- Statistiques de visite (anonymes) — inactif tant que la config est vide -->
   <script src="js/analytics-config.js?v=1"></script>
   <script src="js/analytics.js?v=1" defer></script>
