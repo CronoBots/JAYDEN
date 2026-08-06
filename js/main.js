@@ -443,17 +443,35 @@
       morseEl.appendChild(s);
       return s;
     });
+
+    // Lettres S · O · S de la phrase, allumées en synchro avec les groupes morse.
+    const quoteEl = document.querySelector(".hero__quote");
+    const sosSpans = quoteEl ? Array.from(quoteEl.querySelectorAll(".sos")) : [];
+    // Dernier caractère de chaque groupe (séparé par une espace) → lettre à allumer.
+    const groupEnd = {};
+    let g = 0;
+    chars.forEach((ch, idx) => {
+      if (ch !== " " && (idx === chars.length - 1 || chars[idx + 1] === " ")) groupEnd[idx] = g++;
+    });
+    const lightLetter = (gi) => {
+      if (sosSpans[gi]) sosSpans[gi].classList.add("lit");
+      if (quoteEl && gi === sosSpans.length - 1) quoteEl.classList.add("is-sos-lit");
+    };
+
     if (reduce || !chars.length) {
       spans.forEach((s) => s.classList.add("on"));
+      sosSpans.forEach((s) => s.classList.add("lit"));
+      if (quoteEl) quoteEl.classList.add("is-sos-lit");
     } else {
       const delayFor = (ch) => (ch === "·" ? 180 : ch === "—" ? 440 : 520);
       let i = 0;
       const reveal = () => {
         if (i >= spans.length) return; // écrit une seule fois, ne recommence pas
-        spans[i].classList.add("on");
-        const ch = chars[i];
+        const idx = i;
+        spans[idx].classList.add("on");
+        if (idx in groupEnd) lightLetter(groupEnd[idx]); // fin d'un groupe → halo S / O / S
         i++;
-        setTimeout(reveal, delayFor(ch));
+        setTimeout(reveal, delayFor(chars[idx]));
       };
       setTimeout(reveal, 1200); // démarre après l'apparition du logo
     }

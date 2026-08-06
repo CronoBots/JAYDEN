@@ -441,6 +441,18 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
 .hero__quote > span { display: block; }
 /* Les lettres S · O · S de « Save Our Soul » en doré */
 .hero__quote .sos { color: var(--gold-lite); font-style: normal; font-weight: 600; }
+/* Halo : chaque lettre S · O · S s'allume au rythme des 3 groupes du morse
+   (··· → S, ——— → O, ··· → S), puis conserve une lueur douce. */
+.hero__quote .sos.lit { animation: sosHalo 1.15s var(--ease) forwards; }
+.hero__quote.is-sos-lit .sos { text-shadow: 0 0 9px rgba(244,223,164,0.5), 0 0 20px rgba(217,172,82,0.3); }
+@keyframes sosHalo {
+  0%   { text-shadow: 0 0 0 rgba(244,223,164,0); }
+  30%  { text-shadow: 0 0 17px rgba(244,223,164,0.95), 0 0 38px rgba(217,172,82,0.6); }
+  100% { text-shadow: 0 0 9px rgba(244,223,164,0.5), 0 0 20px rgba(217,172,82,0.3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__quote .sos.lit { animation: none; }
+}
 
 /* =========================================================
    SINGLE — pochette (simple cadre, non cliquable)
