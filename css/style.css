@@ -575,6 +575,12 @@ body.menu-open .nav__burger span:nth-child(3) { top: 10px; transform: rotate(-45
   body.menu-open .nav__links { transform: translateX(0); }
   body.menu-open .nav__social { opacity: 1; pointer-events: auto; }
   body.menu-open .lang { opacity: 1; pointer-events: auto; }
+  /* IMPORTANT : quand le menu est ouvert, on retire le backdrop-filter de la barre.
+     Sinon .nav (avec .scrolled) devient le bloc conteneur de ses enfants
+     position:fixed (overlay, réseaux, langue) et casse leur plein écran —
+     ce qui faisait « disparaître » les réseaux/langue et rendait le fond translucide
+     quand on ouvrait le menu après avoir défilé. */
+  body.menu-open .nav { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
   /* Logo + bouton toujours au-dessus de l'overlay */
   .nav__logo { position: relative; z-index: 102; }
   .nav__burger { display: block; z-index: 102; }
